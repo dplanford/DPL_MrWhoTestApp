@@ -8,10 +8,11 @@
 
 import UIKit
 
-class MovieListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class MovieListViewController: UIViewController,
+                                UICollectionViewDelegate, UICollectionViewDataSource,
+                                UIPickerViewDelegate, UIPickerViewDataSource {
 
-    static let CellAspectRatio: CGFloat = 1.5
-
+    @IBOutlet weak var movieTypePickerView: UIPickerView!
     @IBOutlet weak var movieCollectionView: UICollectionView!
 
     override func viewDidLoad() {
@@ -56,7 +57,38 @@ class MovieListViewController: UIViewController, UICollectionViewDelegate, UICol
         }
     }
 
-    // MARK: Notifications
+    // MARK: UIPickerViewDataSource
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        //TODO: hard-coded for now...
+        return 5
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        //TODO: hard-coded for now...
+        switch row {
+        case 0: return "Popular"
+        case 1: return "Latest"
+        case 2: return "Upcoming"
+        case 3: return "Now Playing"
+        case 4: return "Top Rated"
+        default: return "???"
+        }
+    }
+
+    // MARK: UIPickerViewDelegate
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print("Pickerd row: \(row)")
+        //TODO: build off this to use this picker view to switch between movie list types!
+        //  - In TMDbManager... pass in list type as an enum....
+    }
+
+    // MARK: Local notifications
 
     @objc func redrawMovieList() {
         DispatchQueue.main.async { [weak self] in

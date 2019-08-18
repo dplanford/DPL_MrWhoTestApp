@@ -12,8 +12,14 @@ class MovieListViewController: UIViewController, UICollectionViewDelegate, UICol
 
     static let CellAspectRatio: CGFloat = 1.5
 
+    @IBOutlet weak var movieCollectionView: UICollectionView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        TMDbManager.getMovieList()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(redrawMovieList), name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil)
     }
 
     // MARK: UICollectionViewDataSource
@@ -23,12 +29,20 @@ class MovieListViewController: UIViewController, UICollectionViewDelegate, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return TMDbManager.currentMovieList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"MovieListViewCell", for: indexPath) as! MovieListViewCell
-        cell.label.text = String(indexPath.row)
+
+        let thisMovie = TMDbManager.currentMovieList[indexPath.row]
+
+        cell.label.text = thisMovie["title"] as? String
+
+        if let posterPath = thisMovie["poster_path"] as? String {
+            cell.poster.image = TMDbManager.getMovieImage(fileName: posterPath)
+        }
+
         return cell
     }
 
@@ -39,6 +53,14 @@ class MovieListViewController: UIViewController, UICollectionViewDelegate, UICol
         if let detailViewController: MovieDetailViewController = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController {
             detailViewController.updateDetailValue(indexPath.row)
             self.present(detailViewController, animated: true, completion: nil)
+        }
+    }
+
+    // MARK: Notifications
+
+    @objc func redrawMovieList() {
+        DispatchQueue.main.async { [weak self] in
+            self?.movieCollectionView.reloadData()
         }
     }
 }

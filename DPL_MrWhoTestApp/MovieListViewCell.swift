@@ -11,4 +11,5 @@ import UIKit
 class MovieListViewCell: UICollectionViewCell {
 
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var poster: UIImageView!
 }

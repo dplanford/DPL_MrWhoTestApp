@@ -16,6 +16,10 @@ class TMDbManager {
     private static let MoviesPopular = "movie/popular"
     private static let APIKey = "?api_key=a868cc859b204425655c020f8b7eb2ab"
 
+    public static let NewMovieListNotification = "DPLMrWho-NewMovieListNotification"
+
+    public static var currentMovieList: [[String: Any]] = []
+
     public static func getMovieList() {
         let urlString = "\(TMDbManager.BaseURL)\(TMDbManager.MoviesPopular)\(TMDbManager.APIKey)"
         print("URL = \(urlString)")
@@ -47,16 +51,21 @@ class TMDbManager {
             }
 
             guard let content = jsonData as? [String: Any] else {
-                guard let array = jsonData as? [Any] else {
-                    print("Error - response JSON does not parse to a dictionary or array")
-                    return
-                }
-
-                print(array)
+                print("Error - response JSON does not parse to a dictionary")
                 return
             }
 
-            print(content)
+            guard let movieArray = content["results"] as? [[String: Any]] else {
+                print("Error - response dictionary results does not parse to an array of dictionaries")
+                return
+            }
+
+            self.currentMovieList = movieArray
+
+            print(self.currentMovieList)
+
+            //??? NotificationCenter.default.post(name: TMDbManager.NewMovieListNotification, object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
         }
 
         task.resume()

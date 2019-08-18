@@ -58,6 +58,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="label" destination="B1f-mX-6Rx" id="9BO-Iq-g1D"/>
+                                            <outlet property="poster" destination="UIv-vi-1G7" id="sBJ-Be-zYF"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -76,6 +77,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="movieCollectionView" destination="RTl-W2-TaM" id="gk3-iO-WZw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

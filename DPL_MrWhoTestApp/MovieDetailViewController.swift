@@ -20,6 +20,7 @@ class MovieDetailViewController: UIViewController {
 
         self.label.text = String(self.detailValue)
 
+        // TEMP!!! Test of loading a movie image....
         self.poster.image = TMDbManager.getMovieImage(fileName: "kqjL17yufvn9OVLyXYpvtyrFfak.jpg")
     }
     
@@ -29,9 +30,6 @@ class MovieDetailViewController: UIViewController {
     }
 
     @IBAction func backButtonTapped() {
-        // TEMP!!! For testing TMDbManager
-        TMDbManager.getMovieList()
-
         self.dismiss(animated: true, completion: nil)
     }
 }

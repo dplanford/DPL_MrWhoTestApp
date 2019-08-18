@@ -25,19 +25,28 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DPL's MrWho Test App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOe-Nt-otp">
-                                <rect key="frame" x="50" y="623" width="315" height="39"/>
+                                <rect key="frame" x="49.666666666666657" y="623" width="315" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OpusGames_logo" translatesAutoresizingMaskIntoConstraints="NO" id="GYW-yp-AaM">
+                                <rect key="frame" x="143" y="535" width="128" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="3Gq-fL-Q7t"/>
+                                    <constraint firstAttribute="height" constant="80" id="bUA-yE-z4J"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6LM-3n-njJ" secondAttribute="trailing" constant="40" id="EVI-pp-bdS"/>
                             <constraint firstItem="6LM-3n-njJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="108" id="MFS-Gf-7w4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="UOe-Nt-otp" secondAttribute="bottom" constant="74" id="ffU-0p-Cqw"/>
+                            <constraint firstItem="GYW-yp-AaM" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ksO-n3-oTq"/>
                             <constraint firstItem="UOe-Nt-otp" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="o3d-UN-DOu"/>
                             <constraint firstItem="6LM-3n-njJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="r9r-3T-4Eg"/>
+                            <constraint firstItem="UOe-Nt-otp" firstAttribute="top" secondItem="GYW-yp-AaM" secondAttribute="bottom" constant="8" id="s05-L2-9ED"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -48,6 +57,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="OpusGames_logo" width="64" height="40"/>
         <image name="vPnbve64_400x400" width="400" height="400"/>
     </resources>
 </document>

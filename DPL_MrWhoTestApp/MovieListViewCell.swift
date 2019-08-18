@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CollectionViewCell: UICollectionViewCell {
+class MovieListViewCell: UICollectionViewCell {
 
     @IBOutlet weak var label: UILabel!
 }

@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Movie List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController modalTransitionStyle="flipHorizontal" id="BYZ-38-t0r" customClass="ViewController" customModule="DPL_TMDb_TestApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="flipHorizontal" id="BYZ-38-t0r" customClass="MovieListViewController" customModule="DPL_MrWhoTestApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -28,7 +28,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="doV-g9-XDA" customClass="CollectionViewCell" customModule="DPL_TMDb_TestApp" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MovieListViewCell" id="doV-g9-XDA" customClass="MovieListViewCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -36,17 +36,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1f-mX-6Rx">
-                                                    <rect key="frame" x="53" y="126" width="94" height="48"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UIv-vi-1G7">
+                                                    <rect key="frame" x="0.0" y="37" width="200" height="263"/>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="1" green="0.086396532050000002" blue="0.99765419730000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="B1f-mX-6Rx" firstAttribute="centerX" secondItem="doV-g9-XDA" secondAttribute="centerX" id="CvI-O7-AL4"/>
-                                            <constraint firstItem="B1f-mX-6Rx" firstAttribute="centerY" secondItem="doV-g9-XDA" secondAttribute="centerY" id="Eg6-lZ-9wA"/>
+                                            <constraint firstItem="UIv-vi-1G7" firstAttribute="top" secondItem="B1f-mX-6Rx" secondAttribute="bottom" constant="13" id="9AB-o6-sbb"/>
+                                            <constraint firstItem="B1f-mX-6Rx" firstAttribute="leading" secondItem="doV-g9-XDA" secondAttribute="leading" id="FoN-1N-SIV"/>
+                                            <constraint firstAttribute="trailing" secondItem="B1f-mX-6Rx" secondAttribute="trailing" id="T1i-Ma-HBt"/>
+                                            <constraint firstItem="UIv-vi-1G7" firstAttribute="leading" secondItem="doV-g9-XDA" secondAttribute="leading" id="T8E-g8-CvF"/>
+                                            <constraint firstAttribute="trailing" secondItem="UIv-vi-1G7" secondAttribute="trailing" id="a2N-Pz-OvT"/>
+                                            <constraint firstItem="B1f-mX-6Rx" firstAttribute="top" secondItem="doV-g9-XDA" secondAttribute="top" id="feO-1O-4XW"/>
+                                            <constraint firstAttribute="bottom" secondItem="UIv-vi-1G7" secondAttribute="bottom" id="vgE-gq-bMZ"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="label" destination="B1f-mX-6Rx" id="9BO-Iq-g1D"/>
@@ -73,16 +81,16 @@
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="95.380434782608702"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Movie Detail View Controller-->
         <scene sceneID="rmK-3n-g38">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" modalTransitionStyle="flipHorizontal" id="6ro-3H-FnL" customClass="DetailViewController" customModule="DPL_TMDb_TestApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieDetailViewController" modalTransitionStyle="flipHorizontal" id="6ro-3H-FnL" customClass="MovieDetailViewController" customModule="DPL_MrWhoTestApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pow-zX-48l">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iIX-sv-Z04">
-                                <rect key="frame" x="137.66666666666666" y="342" width="138.99999999999997" height="72"/>
+                                <rect key="frame" x="137.66666666666666" y="242" width="138.99999999999997" height="72"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -95,7 +103,7 @@
                                 </constraints>
                                 <state key="normal" image="back-arrow"/>
                                 <connections>
-                                    <action selector="backButtonTapped" destination="6ro-3H-FnL" eventType="touchUpInside" id="uky-uh-Dlv"/>
+                                    <action selector="backButtonTapped" destination="6ro-3H-FnL" eventType="touchUpInside" id="jfr-iM-aVd"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3QF-sL-QVM">
@@ -112,7 +120,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="LXb-JM-Uqh" firstAttribute="leading" secondItem="Clz-7j-EfS" secondAttribute="leading" constant="20" id="4cO-fr-oS8"/>
-                            <constraint firstItem="iIX-sv-Z04" firstAttribute="centerY" secondItem="Clz-7j-EfS" secondAttribute="centerY" id="Gpy-ht-MI5"/>
+                            <constraint firstItem="iIX-sv-Z04" firstAttribute="centerY" secondItem="Clz-7j-EfS" secondAttribute="centerY" constant="-100" id="Gpy-ht-MI5"/>
                             <constraint firstItem="LXb-JM-Uqh" firstAttribute="top" secondItem="Clz-7j-EfS" secondAttribute="top" id="hC6-ur-Jgy"/>
                             <constraint firstItem="iIX-sv-Z04" firstAttribute="centerX" secondItem="Clz-7j-EfS" secondAttribute="centerX" id="vYv-ec-8DS"/>
                             <constraint firstItem="3QF-sL-QVM" firstAttribute="leading" secondItem="Clz-7j-EfS" secondAttribute="leading" id="wKu-1T-Qra"/>
@@ -121,8 +129,8 @@
                         <viewLayoutGuide key="safeArea" id="Clz-7j-EfS"/>
                     </view>
                     <connections>
-                        <outlet property="label" destination="iIX-sv-Z04" id="pDL-aT-jor"/>
-                        <outlet property="poster" destination="3QF-sL-QVM" id="eeP-cq-F5E"/>
+                        <outlet property="label" destination="iIX-sv-Z04" id="sB6-5p-MNp"/>
+                        <outlet property="poster" destination="3QF-sL-QVM" id="Ipu-Yg-EWK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b0e-eH-brI" userLabel="First Responder" sceneMemberID="firstResponder"/>

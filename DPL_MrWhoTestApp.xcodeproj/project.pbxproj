@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		E7A30D192308F25B00F36BC3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A30D182308F25B00F36BC3 /* AppDelegate.swift */; };
-		E7A30D1B2308F25B00F36BC3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A30D1A2308F25B00F36BC3 /* ViewController.swift */; };
+		E7A30D1B2308F25B00F36BC3 /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A30D1A2308F25B00F36BC3 /* MovieListViewController.swift */; };
 		E7A30D1E2308F25B00F36BC3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7A30D1C2308F25B00F36BC3 /* Main.storyboard */; };
 		E7A30D202308F25B00F36BC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7A30D1F2308F25B00F36BC3 /* Assets.xcassets */; };
 		E7A30D232308F25B00F36BC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7A30D212308F25B00F36BC3 /* LaunchScreen.storyboard */; };
 		E7A30D2E2308F25C00F36BC3 /* DPL_MrWhoTestAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A30D2D2308F25C00F36BC3 /* DPL_MrWhoTestAppTests.swift */; };
 		E7A30D392308F25C00F36BC3 /* DPL_MrWhoTestAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A30D382308F25C00F36BC3 /* DPL_MrWhoTestAppUITests.swift */; };
 		E7A30D492308F2AC00F36BC3 /* TMDbManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A30D462308F2AB00F36BC3 /* TMDbManager.swift */; };
-		E7A30D4A2308F2AC00F36BC3 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A30D472308F2AB00F36BC3 /* CollectionViewCell.swift */; };
-		E7A30D4B2308F2AC00F36BC3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A30D482308F2AB00F36BC3 /* DetailViewController.swift */; };
+		E7A30D4A2308F2AC00F36BC3 /* MovieListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A30D472308F2AB00F36BC3 /* MovieListViewCell.swift */; };
+		E7A30D4B2308F2AC00F36BC3 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A30D482308F2AB00F36BC3 /* MovieDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +39,7 @@
 /* Begin PBXFileReference section */
 		E7A30D152308F25B00F36BC3 /* DPL_MrWhoTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DPL_MrWhoTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7A30D182308F25B00F36BC3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E7A30D1A2308F25B00F36BC3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E7A30D1A2308F25B00F36BC3 /* MovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
 		E7A30D1D2308F25B00F36BC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E7A30D1F2308F25B00F36BC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E7A30D222308F25B00F36BC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,8 +51,8 @@
 		E7A30D382308F25C00F36BC3 /* DPL_MrWhoTestAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPL_MrWhoTestAppUITests.swift; sourceTree = "<group>"; };
 		E7A30D3A2308F25C00F36BC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7A30D462308F2AB00F36BC3 /* TMDbManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMDbManager.swift; sourceTree = "<group>"; };
-		E7A30D472308F2AB00F36BC3 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
-		E7A30D482308F2AB00F36BC3 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		E7A30D472308F2AB00F36BC3 /* MovieListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListViewCell.swift; sourceTree = "<group>"; };
+		E7A30D482308F2AB00F36BC3 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,9 +104,9 @@
 			isa = PBXGroup;
 			children = (
 				E7A30D182308F25B00F36BC3 /* AppDelegate.swift */,
-				E7A30D1A2308F25B00F36BC3 /* ViewController.swift */,
-				E7A30D472308F2AB00F36BC3 /* CollectionViewCell.swift */,
-				E7A30D482308F2AB00F36BC3 /* DetailViewController.swift */,
+				E7A30D1A2308F25B00F36BC3 /* MovieListViewController.swift */,
+				E7A30D472308F2AB00F36BC3 /* MovieListViewCell.swift */,
+				E7A30D482308F2AB00F36BC3 /* MovieDetailViewController.swift */,
 				E7A30D462308F2AB00F36BC3 /* TMDbManager.swift */,
 				E7A30D1C2308F25B00F36BC3 /* Main.storyboard */,
 				E7A30D1F2308F25B00F36BC3 /* Assets.xcassets */,
@@ -266,9 +266,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7A30D492308F2AC00F36BC3 /* TMDbManager.swift in Sources */,
-				E7A30D1B2308F25B00F36BC3 /* ViewController.swift in Sources */,
-				E7A30D4B2308F2AC00F36BC3 /* DetailViewController.swift in Sources */,
-				E7A30D4A2308F2AC00F36BC3 /* CollectionViewCell.swift in Sources */,
+				E7A30D1B2308F25B00F36BC3 /* MovieListViewController.swift in Sources */,
+				E7A30D4B2308F2AC00F36BC3 /* MovieDetailViewController.swift in Sources */,
+				E7A30D4A2308F2AC00F36BC3 /* MovieListViewCell.swift in Sources */,
 				E7A30D192308F25B00F36BC3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

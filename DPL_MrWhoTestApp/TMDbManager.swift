@@ -19,10 +19,11 @@ class TMDbManager {
     public static let NewMovieListNotification = "DPLMrWho-NewMovieListNotification"
 
     public static var currentMovieList: [[String: Any]] = []
+    public static var currentMovieImageCache: [String: UIImage] = [:]
 
     public static func getMovieList() {
         let urlString = "\(TMDbManager.BaseURL)\(TMDbManager.MoviesPopular)\(TMDbManager.APIKey)"
-        print("URL = \(urlString)")
+        //print("URL = \(urlString)")
 
         guard let url = URL(string: urlString) else {
             print("Error - URL string is invalid")
@@ -61,10 +62,11 @@ class TMDbManager {
             }
 
             self.currentMovieList = movieArray
+            TMDbManager.currentMovieImageCache = [:] // reset image cache for the new movie list
 
-            print(self.currentMovieList)
+            //print(self.currentMovieList)
 
-            //??? NotificationCenter.default.post(name: TMDbManager.NewMovieListNotification, object: nil)
+            // Notify the app that a new movie list is available.
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
         }
 
@@ -72,8 +74,14 @@ class TMDbManager {
     }
 
     public static func getMovieImage(fileName: String) -> UIImage? {
+        if let image = TMDbManager.currentMovieImageCache[fileName] {
+            // return cached image.
+            return image
+        }
+
+        // get a new image from the TMDb server
         let urlString = "\(TMDbManager.BaseImageURL)\(fileName)\(TMDbManager.APIKey)"
-        print("Image URL = \(urlString)")
+        //print("Image URL = \(urlString)")
 
         guard let url = URL(string: urlString) else {
             print("Error - URL string is invalid")
@@ -85,6 +93,9 @@ class TMDbManager {
             return nil
         }
 
-        return UIImage(data: data)
+        let image = UIImage(data: data)
+        TMDbManager.currentMovieImageCache[fileName] = image    // cache the image, keyed by filename.
+
+        return image
     }
 }

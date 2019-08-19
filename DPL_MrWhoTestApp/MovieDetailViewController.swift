@@ -54,25 +54,25 @@ class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableV
             return tableView.bounds.width * 1.5
         }
 
-        // row 1 is the description text field, fixed height.
-        return 280.0
+        // row 1 is the description text area, fixed height (but internally scrollable if text gets to large).
+        return 300.0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let thisMovie = TMDbManager.shared.currentMovieList[self.detailMovieIndex]
 
         if indexPath.row == 0 {
-            // poster cell.
+            // movie poster cell.
             let cell = tableView.dequeueReusableCell(withIdentifier: MovieDetailPosterCell.reuseID, for: indexPath) as! MovieDetailPosterCell
 
-            if let posterPath = thisMovie["poster_path"] as? String {
-                cell.poster.image = TMDbManager.shared.getMovieImage(fileName: posterPath)
+            if let posterPath = thisMovie[TMDbManager.tmdbPosterPath] as? String {
+                cell.posterImageView.image = TMDbManager.shared.getMovieImage(fileName: posterPath)
             }
 
             return cell
         }
 
-        // description cell... movie overview blurb, plus release date, votes, and original language.
+        // description cell... a text area displaying movie overview blurb, plus release date, votes, and original language.
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieDetailDescriptionCell.reuseID, for: indexPath) as! MovieDetailDescriptionCell
 
         var description = ""

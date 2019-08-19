@@ -111,7 +111,7 @@
                             <constraint firstItem="7Za-vV-Vz1" firstAttribute="trailing" secondItem="HjY-Xd-GRm" secondAttribute="trailing" constant="20" id="Wwd-YD-Tfz"/>
                             <constraint firstItem="7Za-vV-Vz1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XAx-4y-ejY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Tbe-aW-Wup" secondAttribute="trailing" constant="5" id="dEx-Fl-C7N"/>
-                            <constraint firstItem="nRX-kU-1mW" firstAttribute="leading" secondItem="kdE-cA-zb2" secondAttribute="trailing" constant="-143" id="hOh-T7-mtn"/>
+                            <constraint firstItem="nRX-kU-1mW" firstAttribute="leading" secondItem="kdE-cA-zb2" secondAttribute="leading" id="hOh-T7-mtn"/>
                             <constraint firstItem="RTl-W2-TaM" firstAttribute="top" secondItem="nRX-kU-1mW" secondAttribute="bottom" id="izo-rB-7c4"/>
                             <constraint firstItem="nRX-kU-1mW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jNL-ED-szG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7Za-vV-Vz1" secondAttribute="trailing" id="ktD-uI-6EH"/>
@@ -167,7 +167,7 @@
                                 <rect key="frame" x="0.0" y="110" width="414" height="626"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieDetailPosterCell" rowHeight="400" id="rAp-C2-WnG" customClass="MovieDetailPosterCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieDetailPosterCell" rowHeight="400" id="rAp-C2-WnG" customClass="MovieDetailPosterCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="400"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rAp-C2-WnG" id="p8b-Nd-3N9">
@@ -186,10 +186,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="poster" destination="YKM-tg-7uh" id="hOL-Lg-lB7"/>
+                                            <outlet property="posterImageView" destination="YKM-tg-7uh" id="hOL-Lg-lB7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieDetailDescriptionCell" rowHeight="200" id="P3u-GU-U6u" customClass="MovieDetailDescriptionCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieDetailDescriptionCell" rowHeight="200" id="P3u-GU-U6u" customClass="MovieDetailDescriptionCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="428" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P3u-GU-U6u" id="cpc-0E-DeK">

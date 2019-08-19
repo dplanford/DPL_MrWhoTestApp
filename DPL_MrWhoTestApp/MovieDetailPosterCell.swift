@@ -14,5 +14,5 @@ class MovieDetailPosterCell: UITableViewCell {
 
     static let reuseID = "MovieDetailPosterCell"
 
-    @IBOutlet public weak var poster: UIImageView!
+    @IBOutlet public weak var posterImageView: UIImageView!
 }

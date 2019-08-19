@@ -17,7 +17,7 @@ class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let thisMovie = TMDbManager.currentMovieList[self.detailMovieIndex]
+        let thisMovie = TMDbManager.shared.currentMovieList[self.detailMovieIndex]
 
         self.titleLabel.text = thisMovie["title"] as? String
     }
@@ -25,7 +25,7 @@ class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableV
     public func updateDetailMovieIndex(_ val: Int) {
         self.detailMovieIndex = val
 
-        let thisMovie = TMDbManager.currentMovieList[self.detailMovieIndex]
+        let thisMovie = TMDbManager.shared.currentMovieList[self.detailMovieIndex]
 
         if let label = self.titleLabel {
             label.text = thisMovie["title"] as? String
@@ -53,13 +53,13 @@ class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let thisMovie = TMDbManager.currentMovieList[self.detailMovieIndex]
+        let thisMovie = TMDbManager.shared.currentMovieList[self.detailMovieIndex]
 
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: MovieDetailPosterCell.reuseID, for: indexPath) as! MovieDetailPosterCell
 
             if let posterPath = thisMovie["poster_path"] as? String {
-                cell.poster.image = TMDbManager.getMovieImage(fileName: posterPath)
+                cell.poster.image = TMDbManager.shared.getMovieImage(fileName: posterPath)
             }
 
             return cell
@@ -67,9 +67,31 @@ class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieDetailDescriptionCell.reuseID, for: indexPath) as! MovieDetailDescriptionCell
 
-        if let description = thisMovie["overview"] as? String {
-            cell.descriptionTextArea.text = description
+        var description = ""
+
+        if let overview = thisMovie["overview"] as? String {
+            description += overview
         }
+
+        description += "\n-----------------------------"
+
+        if let releaseDate = thisMovie["release_date"] as? String {
+            description += "\nReleased \(releaseDate)"
+        }
+
+        if let voteAverage = thisMovie["vote_average"] as? CGFloat {
+            description += "\nVote Average: \(voteAverage)"
+
+            if let votes = thisMovie["vote_count"] as? Int {
+                description += " (\(votes) votes)"
+            }
+        }
+
+        if let language = thisMovie["original_language"] as? String {
+            description += "\nOriginal Language: \(language)"
+        }
+
+        cell.descriptionTextArea.text = description
 
         return cell
     }

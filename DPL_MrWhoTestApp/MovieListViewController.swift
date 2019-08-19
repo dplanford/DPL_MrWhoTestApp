@@ -10,20 +10,26 @@ import UIKit
 
 class MovieListViewController: UIViewController,
                                 UICollectionViewDelegate, UICollectionViewDataSource,
-                                UIPickerViewDelegate, UIPickerViewDataSource {
+                                UIPickerViewDelegate, UIPickerViewDataSource,
+                                UITextFieldDelegate {
 
     @IBOutlet weak var movieTypePickerView: UIPickerView!
     @IBOutlet weak var movieListLoadingSpinner: UIActivityIndicatorView!
     @IBOutlet weak var minVoteTextField: UITextField!
+    @IBOutlet weak var minVoteSlider: UISlider!
     @IBOutlet weak var movieCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.movieListLoadingSpinner.startAnimating()
-        TMDbManager.getMovieList(.popular)
-
         NotificationCenter.default.addObserver(self, selector: #selector(redrawMovieList), name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil)
+
+        self.minVoteTextField.addTarget(self, action: #selector(updateVoteFilter), for: .editingChanged)
+
+        self.movieListLoadingSpinner.startAnimating()
+        TMDbManager.shared.getMovieList(.popular)
+
+        self.minVoteSliderChanged()
     }
 
     // MARK: UICollectionViewDataSource
@@ -33,18 +39,19 @@ class MovieListViewController: UIViewController,
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return TMDbManager.currentMovieList.count
+        return TMDbManager.shared.filteredMovieList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"MovieListViewCell", for: indexPath) as! MovieListViewCell
 
-        let thisMovie = TMDbManager.currentMovieList[indexPath.row]
+        let movieIndex = TMDbManager.shared.filteredMovieList[indexPath.row]
+        let thisMovie = TMDbManager.shared.currentMovieList[movieIndex]
 
         cell.label.text = thisMovie["title"] as? String
 
         if let posterPath = thisMovie["poster_path"] as? String {
-            cell.poster.image = TMDbManager.getMovieImage(fileName: posterPath)
+            cell.poster.image = TMDbManager.shared.getMovieImage(fileName: posterPath)
         }
 
         return cell
@@ -55,7 +62,9 @@ class MovieListViewController: UIViewController,
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let detailViewController: MovieDetailViewController = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController {
-            detailViewController.updateDetailMovieIndex(indexPath.row)
+            let movieIndex = TMDbManager.shared.filteredMovieList[indexPath.row]
+            detailViewController.updateDetailMovieIndex(movieIndex)
+
             self.present(detailViewController, animated: true, completion: nil)
         }
     }
@@ -83,17 +92,58 @@ class MovieListViewController: UIViewController,
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if let listType = TMDbManager.MovieListType(rawValue: row) {
             self.movieListLoadingSpinner.startAnimating()
-            TMDbManager.getMovieList(listType)
+            TMDbManager.shared.getMovieList(listType)
         }
     }
 
-    // MARK: Local notifications
+    // MARK: UITextFieldDelegate
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Clicking "GO" on the keyboard dismisses the keyboard.
+        textField.resignFirstResponder()
+
+        return true
+    }
+
+    // MARK: Text Field
+
+    @objc func updateVoteFilter() {
+        var voteFilter: CGFloat = 0.0
+
+        if let filterString = self.minVoteTextField.text,
+            let validFloat = Float(filterString) {
+                voteFilter = CGFloat(validFloat)
+        }
+
+        self.minVoteSlider.value = Float(voteFilter)
+
+        TMDbManager.shared.filterMovieList(vote: voteFilter)
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // Touching outside the text field dismisses the keyboard.
+        self.view.endEditing(true)
+
+        super.touchesBegan(touches, with: event)
+    }
+
+    // MARK: Notifications
 
     @objc func redrawMovieList() {
         DispatchQueue.main.async { [weak self] in
             self?.movieListLoadingSpinner.stopAnimating()
             self?.movieCollectionView.reloadData()
         }
+    }
+
+    // MARK: IBActions
+
+    @IBAction func minVoteSliderChanged() {
+        let voteFilter = self.minVoteSlider.value
+
+        self.minVoteTextField.text = String(voteFilter)
+
+        TMDbManager.shared.filterMovieList(vote: CGFloat(voteFilter))
     }
 }
 

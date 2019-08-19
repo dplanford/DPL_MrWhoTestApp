@@ -46,10 +46,15 @@ class TMDbManager {
         }
     }
 
-    private static var currentMovieImageCache: [String: UIImage] = [:]
-    public static var currentMovieList: [[String: Any]] = []
+    public static let shared = TMDbManager()
 
-    public static func getMovieList(_ listType: TMDbManager.MovieListType) {
+    private var currentMovieImageCache: [String: UIImage] = [:]
+    private var voteAverageFilter: CGFloat = 7.0
+
+    public var currentMovieList: [[String: Any]] = []
+    public var filteredMovieList: [Int] = []
+
+    public func getMovieList(_ listType: TMDbManager.MovieListType) {
         let urlString = "\(TMDbManager.BaseURL)\(listType.listTypeURL())\(TMDbManager.APIKey)"
         //print("URL = \(urlString)")
 
@@ -65,7 +70,7 @@ class TMDbManager {
         let urlSession = URLSession(configuration: URLSessionConfiguration.default)
         let task = urlSession.dataTask(with: request) { (data:Data?, response:URLResponse?, error:Error?) in
             self.currentMovieList = []
-            TMDbManager.currentMovieImageCache = [:] // reset image cache for the new movie list
+            self.currentMovieImageCache = [:] // reset image cache for the new movie list
 
             if error != nil {
                 print("Response Error: \(error.debugDescription)")
@@ -98,18 +103,16 @@ class TMDbManager {
             }
 
             self.currentMovieList = movieArray
-
             //print(self.currentMovieList)
 
-            // Notify the app that a new movie list is available.
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
+            TMDbManager.shared.filterMovieList(vote: self.voteAverageFilter)
         }
 
         task.resume()
     }
 
-    public static func getMovieImage(fileName: String) -> UIImage? {
-        if let image = TMDbManager.currentMovieImageCache[fileName] {
+    public func getMovieImage(fileName: String) -> UIImage? {
+        if let image = self.currentMovieImageCache[fileName] {
             // return cached image.
             return image
         }
@@ -129,8 +132,26 @@ class TMDbManager {
         }
 
         let image = UIImage(data: data)
-        TMDbManager.currentMovieImageCache[fileName] = image    // cache the image, keyed by filename.
+        self.currentMovieImageCache[fileName] = image    // cache the image, keyed by filename.
 
         return image
+    }
+
+    public func filterMovieList(vote: CGFloat) {
+        self.voteAverageFilter = vote
+        self.filteredMovieList = []
+
+        for i in 0 ..< self.currentMovieList.count {
+            let thisMovie = self.currentMovieList[i]
+
+            if let voteAverage = thisMovie["vote_average"] as? CGFloat {
+                if voteAverage >= self.voteAverageFilter {
+                    self.filteredMovieList.append(i)
+                }
+            }
+        }
+
+        // Notify the app that a new movie list is available.
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
     }
 }

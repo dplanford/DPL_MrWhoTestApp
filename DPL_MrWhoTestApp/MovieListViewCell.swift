@@ -12,6 +12,8 @@ import UIKit
 
 class MovieListViewCell: UICollectionViewCell {
 
+    static let reuseID = "MovieListViewCell"
+
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var poster: UIImageView!
 }

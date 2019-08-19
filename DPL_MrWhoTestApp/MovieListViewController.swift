@@ -49,7 +49,7 @@ class MovieListViewController: UIViewController,
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"MovieListViewCell", for: indexPath) as! MovieListViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListViewCell.reuseID, for: indexPath) as! MovieListViewCell
 
         let movieIndex = TMDbManager.shared.filteredMovieList[indexPath.row]
         let thisMovie = TMDbManager.shared.currentMovieList[movieIndex]
@@ -67,7 +67,7 @@ class MovieListViewController: UIViewController,
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let detailViewController = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController {
+        if let detailViewController = storyboard.instantiateViewController(withIdentifier: MovieDetailViewController.storyboardID) as? MovieDetailViewController {
             let movieIndex = TMDbManager.shared.filteredMovieList[indexPath.row]
             detailViewController.updateDetailMovieIndex(movieIndex)
 
@@ -105,7 +105,7 @@ class MovieListViewController: UIViewController,
     // MARK: UITextFieldDelegate
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Clicking "GO" on the keyboard dismisses the keyboard.
+        // Clicking "GO" on the vote average keyboard dismisses the keyboard.
         textField.resignFirstResponder()
 
         return true
@@ -127,7 +127,7 @@ class MovieListViewController: UIViewController,
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // Touching outside the text field dismisses the keyboard.
+        // Touching outside the vote average filter text field dismisses the keyboard.
         self.view.endEditing(true)
 
         super.touchesBegan(touches, with: event)

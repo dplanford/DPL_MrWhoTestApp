@@ -13,6 +13,8 @@ import UIKit
 
 class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    static let storyboardID = "MovieDetailViewController"
+
     @IBOutlet weak var titleLabel: UILabel!
 
     var detailMovieIndex: Int = 0

@@ -11,11 +11,18 @@ import UIKit
 
 class TMDbManager {
 
-    private static let BaseURL = "https://api.themoviedb.org/3/"
-    private static let BaseImageURL = "https://image.tmdb.org/t/p/w500/"
-    private static let APIKey = "?api_key=a868cc859b204425655c020f8b7eb2ab"
+    public static let shared = TMDbManager()
 
     public static let NewMovieListNotification = "DPLMrWho-NewMovieListNotification"
+
+    // TMDb keys.
+    public static let tmdbTitle = "title"
+    public static let tmdbPosterPath = "poster_path"
+    public static let tmdbOverview = "overview"
+    public static let tmdbReleaseDate = "release_date"
+    public static let tmdbVoteAverage = "vote_average"
+    public static let tmdbVoteCount = "vote_count"
+    public static let tmdbOrigLanguage = "original_language"
 
     public enum MovieListType: Int {
         case popular = 0
@@ -26,7 +33,7 @@ class TMDbManager {
         static func count() -> Int {
             return 4
         }
-        
+
         func listTypeString() -> String {
             switch self {
             case .popular:      return "Popular"
@@ -46,13 +53,15 @@ class TMDbManager {
         }
     }
 
-    public static let shared = TMDbManager()
+    public var currentMovieList: [[String: Any]] = []
+    public var filteredMovieList: [Int] = []
+
+    private static let BaseURL = "https://api.themoviedb.org/3/"
+    private static let BaseImageURL = "https://image.tmdb.org/t/p/w500/"
+    private static let APIKey = "?api_key=a868cc859b204425655c020f8b7eb2ab"
 
     private var currentMovieImageCache: [String: UIImage] = [:]
     private var voteAverageFilter: CGFloat = 7.0
-
-    public var currentMovieList: [[String: Any]] = []
-    public var filteredMovieList: [Int] = []
 
     public func getMovieList(_ listType: TMDbManager.MovieListType) {
         let urlString = "\(TMDbManager.BaseURL)\(listType.listTypeURL())\(TMDbManager.APIKey)"
@@ -144,7 +153,7 @@ class TMDbManager {
         for i in 0 ..< self.currentMovieList.count {
             let thisMovie = self.currentMovieList[i]
 
-            if let voteAverage = thisMovie["vote_average"] as? CGFloat {
+            if let voteAverage = thisMovie[TMDbManager.tmdbVoteAverage] as? CGFloat {
                 if voteAverage >= self.voteAverageFilter {
                     self.filteredMovieList.append(i)
                 }

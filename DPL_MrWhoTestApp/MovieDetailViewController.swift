@@ -19,7 +19,7 @@ class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
         let thisMovie = TMDbManager.shared.currentMovieList[self.detailMovieIndex]
 
-        self.titleLabel.text = thisMovie["title"] as? String
+        self.titleLabel.text = thisMovie[TMDbManager.tmdbTitle] as? String
     }
     
     public func updateDetailMovieIndex(_ val: Int) {
@@ -28,7 +28,7 @@ class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableV
         let thisMovie = TMDbManager.shared.currentMovieList[self.detailMovieIndex]
 
         if let label = self.titleLabel {
-            label.text = thisMovie["title"] as? String
+            label.text = thisMovie[TMDbManager.tmdbTitle] as? String
         }
 
         self.view.layoutIfNeeded()
@@ -49,7 +49,7 @@ class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableV
             return tableView.bounds.width * 1.5
         }
 
-        return 200.0
+        return 280.0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -69,25 +69,25 @@ class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
         var description = ""
 
-        if let overview = thisMovie["overview"] as? String {
+        if let overview = thisMovie[TMDbManager.tmdbOverview] as? String {
             description += overview
         }
 
-        description += "\n-----------------------------"
+        description += "\n---------------------------------"
 
-        if let releaseDate = thisMovie["release_date"] as? String {
+        if let releaseDate = thisMovie[TMDbManager.tmdbReleaseDate] as? String {
             description += "\nReleased \(releaseDate)"
         }
 
-        if let voteAverage = thisMovie["vote_average"] as? CGFloat {
+        if let voteAverage = thisMovie[TMDbManager.tmdbVoteAverage] as? CGFloat {
             description += "\nVote Average: \(voteAverage)"
 
-            if let votes = thisMovie["vote_count"] as? Int {
+            if let votes = thisMovie[TMDbManager.tmdbVoteCount] as? Int {
                 description += " (\(votes) votes)"
             }
         }
 
-        if let language = thisMovie["original_language"] as? String {
+        if let language = thisMovie[TMDbManager.tmdbOrigLanguage] as? String {
             description += "\nOriginal Language: \(language)"
         }
 

@@ -48,9 +48,9 @@ class MovieListViewController: UIViewController,
         let movieIndex = TMDbManager.shared.filteredMovieList[indexPath.row]
         let thisMovie = TMDbManager.shared.currentMovieList[movieIndex]
 
-        cell.label.text = thisMovie["title"] as? String
+        cell.label.text = thisMovie[TMDbManager.tmdbTitle] as? String
 
-        if let posterPath = thisMovie["poster_path"] as? String {
+        if let posterPath = thisMovie[TMDbManager.tmdbPosterPath] as? String {
             cell.poster.image = TMDbManager.shared.getMovieImage(fileName: posterPath)
         }
 
@@ -84,7 +84,7 @@ class MovieListViewController: UIViewController,
             return listType.listTypeString()
         }
 
-        return "Error"
+        return "Error?"
     }
 
     // MARK: UIPickerViewDelegate

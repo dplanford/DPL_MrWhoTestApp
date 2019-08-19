@@ -24,6 +24,7 @@ On the main movie list screen, I added a couple of extras. First, I added a pick
 
 # If I Had More Time
 - Think about unit tests, at least for the TMDBManager class.
+- The ability to go through multiple pages of movies (this test app just displays the first page received)
 - The ability to sort the movie list by various criteria (vote-average, release-date, etc., a toggle for asending/decending)
 - UI polishing.
 - Landscape layout and orientation handling.

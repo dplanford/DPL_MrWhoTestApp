@@ -13,12 +13,15 @@ class MovieListViewController: UIViewController,
                                 UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var movieTypePickerView: UIPickerView!
+    @IBOutlet weak var movieListLoadingSpinner: UIActivityIndicatorView!
+    @IBOutlet weak var minVoteTextField: UITextField!
     @IBOutlet weak var movieCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        TMDbManager.getMovieList()
+        self.movieListLoadingSpinner.startAnimating()
+        TMDbManager.getMovieList(.popular)
 
         NotificationCenter.default.addObserver(self, selector: #selector(redrawMovieList), name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil)
     }
@@ -52,7 +55,7 @@ class MovieListViewController: UIViewController,
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let detailViewController: MovieDetailViewController = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController {
-            detailViewController.updateDetailValue(indexPath.row)
+            detailViewController.updateDetailMovieIndex(indexPath.row)
             self.present(detailViewController, animated: true, completion: nil)
         }
     }
@@ -64,34 +67,31 @@ class MovieListViewController: UIViewController,
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        //TODO: hard-coded for now...
-        return 5
+        return TMDbManager.MovieListType.count()
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        //TODO: hard-coded for now...
-        switch row {
-        case 0: return "Popular"
-        case 1: return "Latest"
-        case 2: return "Upcoming"
-        case 3: return "Now Playing"
-        case 4: return "Top Rated"
-        default: return "???"
+        if let listType = TMDbManager.MovieListType(rawValue: row) {
+            return listType.listTypeString()
         }
+
+        return "Error"
     }
 
     // MARK: UIPickerViewDelegate
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("Pickerd row: \(row)")
-        //TODO: build off this to use this picker view to switch between movie list types!
-        //  - In TMDbManager... pass in list type as an enum....
+        if let listType = TMDbManager.MovieListType(rawValue: row) {
+            self.movieListLoadingSpinner.startAnimating()
+            TMDbManager.getMovieList(listType)
+        }
     }
 
     // MARK: Local notifications
 
     @objc func redrawMovieList() {
         DispatchQueue.main.async { [weak self] in
+            self?.movieListLoadingSpinner.stopAnimating()
             self?.movieCollectionView.reloadData()
         }
     }

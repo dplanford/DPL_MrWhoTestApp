@@ -13,16 +13,44 @@ class TMDbManager {
 
     private static let BaseURL = "https://api.themoviedb.org/3/"
     private static let BaseImageURL = "https://image.tmdb.org/t/p/w500/"
-    private static let MoviesPopular = "movie/popular"
     private static let APIKey = "?api_key=a868cc859b204425655c020f8b7eb2ab"
 
     public static let NewMovieListNotification = "DPLMrWho-NewMovieListNotification"
 
-    public static var currentMovieList: [[String: Any]] = []
-    public static var currentMovieImageCache: [String: UIImage] = [:]
+    public enum MovieListType: Int {
+        case popular = 0
+        case upcoming
+        case nowPlaying
+        case topRated
 
-    public static func getMovieList() {
-        let urlString = "\(TMDbManager.BaseURL)\(TMDbManager.MoviesPopular)\(TMDbManager.APIKey)"
+        static func count() -> Int {
+            return 4
+        }
+        
+        func listTypeString() -> String {
+            switch self {
+            case .popular:      return "Popular"
+            case .upcoming:     return "Upcoming"
+            case .nowPlaying:   return "Now Playing"
+            case .topRated:     return "Top Rated"
+            }
+        }
+
+        func listTypeURL() -> String {
+            switch self {
+            case .popular:      return "movie/popular"
+            case .upcoming:     return "movie/upcoming"
+            case .nowPlaying:   return "movie/now_playing"
+            case .topRated:     return "movie/top_rated"
+            }
+        }
+    }
+
+    private static var currentMovieImageCache: [String: UIImage] = [:]
+    public static var currentMovieList: [[String: Any]] = []
+
+    public static func getMovieList(_ listType: TMDbManager.MovieListType) {
+        let urlString = "\(TMDbManager.BaseURL)\(listType.listTypeURL())\(TMDbManager.APIKey)"
         //print("URL = \(urlString)")
 
         guard let url = URL(string: urlString) else {
@@ -36,33 +64,40 @@ class TMDbManager {
 
         let urlSession = URLSession(configuration: URLSessionConfiguration.default)
         let task = urlSession.dataTask(with: request) { (data:Data?, response:URLResponse?, error:Error?) in
+            self.currentMovieList = []
+            TMDbManager.currentMovieImageCache = [:] // reset image cache for the new movie list
+
             if error != nil {
                 print("Response Error: \(error.debugDescription)")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
                 return
             }
 
             guard let validData = data else {
                 print("Error - response data is empty")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
                 return
             }
 
             guard let jsonData = try? JSONSerialization.jsonObject(with: validData, options: .allowFragments) else {
                 print("Error - response data could not be parsed to JSON")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
                 return
             }
 
             guard let content = jsonData as? [String: Any] else {
                 print("Error - response JSON does not parse to a dictionary")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
                 return
             }
 
             guard let movieArray = content["results"] as? [[String: Any]] else {
                 print("Error - response dictionary results does not parse to an array of dictionaries")
-                return
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
+               return
             }
 
             self.currentMovieList = movieArray
-            TMDbManager.currentMovieImageCache = [:] // reset image cache for the new movie list
 
             //print(self.currentMovieList)
 

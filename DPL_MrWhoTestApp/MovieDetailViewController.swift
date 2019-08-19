@@ -44,14 +44,17 @@ class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // 2 table items... poster & description.
         return 2
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
+            // row 0 is the poster... make room for standard poster height half more than width.
             return tableView.bounds.width * 1.5
         }
 
+        // row 1 is the description text field, fixed height.
         return 280.0
     }
 
@@ -59,6 +62,7 @@ class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableV
         let thisMovie = TMDbManager.shared.currentMovieList[self.detailMovieIndex]
 
         if indexPath.row == 0 {
+            // poster cell.
             let cell = tableView.dequeueReusableCell(withIdentifier: MovieDetailPosterCell.reuseID, for: indexPath) as! MovieDetailPosterCell
 
             if let posterPath = thisMovie["poster_path"] as? String {
@@ -68,6 +72,7 @@ class MovieDetailViewController: UIViewController, UITableViewDelegate, UITableV
             return cell
         }
 
+        // description cell... movie overview blurb, plus release date, votes, and original language.
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieDetailDescriptionCell.reuseID, for: indexPath) as! MovieDetailDescriptionCell
 
         var description = ""

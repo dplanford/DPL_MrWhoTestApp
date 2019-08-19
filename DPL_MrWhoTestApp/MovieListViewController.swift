@@ -67,7 +67,7 @@ class MovieListViewController: UIViewController,
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let detailViewController: MovieDetailViewController = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController {
+        if let detailViewController = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController {
             let movieIndex = TMDbManager.shared.filteredMovieList[indexPath.row]
             detailViewController.updateDetailMovieIndex(movieIndex)
 
@@ -90,7 +90,7 @@ class MovieListViewController: UIViewController,
             return listType.listTypeString()
         }
 
-        return "Error?"
+        return "Error - Outside Movie List Types!"
     }
 
     // MARK: UIPickerViewDelegate
@@ -111,7 +111,7 @@ class MovieListViewController: UIViewController,
         return true
     }
 
-    // MARK: Text Field
+    // MARK: Vote Average Text Field
 
     @objc func updateVoteFilter() {
         var voteFilter: CGFloat = 0.0

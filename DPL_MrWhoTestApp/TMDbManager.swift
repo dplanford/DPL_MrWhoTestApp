@@ -62,13 +62,13 @@ class TMDbManager {
 
     private static let BaseURL = "https://api.themoviedb.org/3/"
     private static let BaseImageURL = "https://image.tmdb.org/t/p/w500/"
-    private static let APIKey = "?api_key=a868cc859b204425655c020f8b7eb2ab"
+    private static let TMDbAPIAccessKey = "?api_key=a868cc859b204425655c020f8b7eb2ab"
 
     private var currentMovieImageCache: [String: UIImage] = [:]
     private var voteAverageFilter: CGFloat = 0.0
 
     public func getMovieList(_ listType: TMDbManager.MovieListType) {
-        let urlString = "\(TMDbManager.BaseURL)\(listType.listTypeURL())\(TMDbManager.APIKey)"
+        let urlString = "\(TMDbManager.BaseURL)\(listType.listTypeURL())\(TMDbManager.TMDbAPIAccessKey)"
         //print("URL = \(urlString)")
 
         guard let url = URL(string: urlString) else {
@@ -131,7 +131,7 @@ class TMDbManager {
         }
 
         // get a new image from the TMDb server.
-        let urlString = "\(TMDbManager.BaseImageURL)\(fileName)\(TMDbManager.APIKey)"
+        let urlString = "\(TMDbManager.BaseImageURL)\(fileName)\(TMDbManager.TMDbAPIAccessKey)"
         //print("Image URL = \(urlString)")
 
         guard let url = URL(string: urlString) else {
@@ -159,7 +159,7 @@ class TMDbManager {
 
             if let voteAverage = thisMovie[TMDbManager.tmdbVoteAverage] as? CGFloat {
                 if voteAverage >= self.voteAverageFilter {
-                    // This movie matches the voter average filter... add it.
+                    // This movie's vote average is equal or greater than the filter setting... add it.
                     self.filteredMovieList.append(i)
                 }
             }

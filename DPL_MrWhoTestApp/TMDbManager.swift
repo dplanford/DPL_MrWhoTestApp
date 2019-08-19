@@ -81,7 +81,7 @@ class TMDbManager {
         request.timeoutInterval = 60.0
 
         let urlSession = URLSession(configuration: URLSessionConfiguration.default)
-        let task = urlSession.dataTask(with: request) { (data:Data?, response:URLResponse?, error:Error?) in
+        let task = urlSession.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             self.currentMovieList = []
             self.currentMovieImageCache = [:] // reset image cache for the new movie list
 

@@ -1,9 +1,15 @@
 //
-//  ViewController.swift
+//  MovieListViewController.swift
 //  DPL-TMDb-TestApp
 //
 //  Created by Douglas Lanford on 8/17/19.
 //  Copyright © 2019 Douglas Lanford. All rights reserved.
+//
+//  A View Controller for displaying a list of movies from the TMDb online database,
+//  as well as a way to pick which type of movie list, and filter by vote average.
+//  Clicking on a movie goes to that movie's detail view (an instance of the class
+//  MovieDetailViewController)
+//  This is the root view of this app.
 //
 
 import UIKit
@@ -117,7 +123,7 @@ class MovieListViewController: UIViewController,
 
         self.minVoteSlider.value = Float(voteFilter)
 
-        TMDbManager.shared.filterMovieList(vote: voteFilter)
+        TMDbManager.shared.filterMovieList(voteAverage: voteFilter)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -143,7 +149,7 @@ class MovieListViewController: UIViewController,
 
         self.minVoteTextField.text = String(voteFilter)
 
-        TMDbManager.shared.filterMovieList(vote: CGFloat(voteFilter))
+        TMDbManager.shared.filterMovieList(voteAverage: CGFloat(voteFilter))
     }
 }
 

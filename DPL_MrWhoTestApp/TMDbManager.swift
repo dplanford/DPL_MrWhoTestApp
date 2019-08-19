@@ -5,17 +5,21 @@
 //  Created by Douglas Lanford on 8/17/19.
 //  Copyright © 2019 Douglas Lanford. All rights reserved.
 //
+//  This class manages online access to the TMDb database.
+//
 
 import Foundation
 import UIKit
 
 class TMDbManager {
 
+    // Access for TMDbManager is through a singleton.
     public static let shared = TMDbManager()
 
     public static let NewMovieListNotification = "DPLMrWho-NewMovieListNotification"
 
     // TMDb keys.
+    public static let tmdbResults = "results"
     public static let tmdbTitle = "title"
     public static let tmdbPosterPath = "poster_path"
     public static let tmdbOverview = "overview"
@@ -61,7 +65,7 @@ class TMDbManager {
     private static let APIKey = "?api_key=a868cc859b204425655c020f8b7eb2ab"
 
     private var currentMovieImageCache: [String: UIImage] = [:]
-    private var voteAverageFilter: CGFloat = 7.0
+    private var voteAverageFilter: CGFloat = 0.0
 
     public func getMovieList(_ listType: TMDbManager.MovieListType) {
         let urlString = "\(TMDbManager.BaseURL)\(listType.listTypeURL())\(TMDbManager.APIKey)"
@@ -105,7 +109,7 @@ class TMDbManager {
                 return
             }
 
-            guard let movieArray = content["results"] as? [[String: Any]] else {
+            guard let movieArray = content[TMDbManager.tmdbResults] as? [[String: Any]] else {
                 print("Error - response dictionary results does not parse to an array of dictionaries")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
                return
@@ -114,7 +118,7 @@ class TMDbManager {
             self.currentMovieList = movieArray
             //print(self.currentMovieList)
 
-            TMDbManager.shared.filterMovieList(vote: self.voteAverageFilter)
+            TMDbManager.shared.filterMovieList(voteAverage: self.voteAverageFilter)
         }
 
         task.resume()
@@ -126,7 +130,7 @@ class TMDbManager {
             return image
         }
 
-        // get a new image from the TMDb server
+        // get a new image from the TMDb server.
         let urlString = "\(TMDbManager.BaseImageURL)\(fileName)\(TMDbManager.APIKey)"
         //print("Image URL = \(urlString)")
 
@@ -146,8 +150,8 @@ class TMDbManager {
         return image
     }
 
-    public func filterMovieList(vote: CGFloat) {
-        self.voteAverageFilter = vote
+    public func filterMovieList(voteAverage: CGFloat) {
+        self.voteAverageFilter = voteAverage
         self.filteredMovieList = []
 
         for i in 0 ..< self.currentMovieList.count {
@@ -155,6 +159,7 @@ class TMDbManager {
 
             if let voteAverage = thisMovie[TMDbManager.tmdbVoteAverage] as? CGFloat {
                 if voteAverage >= self.voteAverageFilter {
+                    // This movie matches the voter average filter... add it.
                     self.filteredMovieList.append(i)
                 }
             }

@@ -1,9 +1,12 @@
 //
-//  DetailViewController.swift
+//  MovieDetailViewController.swift
 //  DPL-TMDb-TestApp
 //
 //  Created by Douglas Lanford on 8/17/19.
 //  Copyright © 2019 Douglas Lanford. All rights reserved.
+//
+//  A View Controller that displays details about a movie, from the TMDb online
+//  database.
 //
 
 import UIKit

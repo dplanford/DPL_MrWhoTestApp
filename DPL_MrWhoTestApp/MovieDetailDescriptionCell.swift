@@ -5,6 +5,8 @@
 //  Created by Douglas Lanford on 8/18/19.
 //  Copyright © 2019 Douglas Lanford. All rights reserved.
 //
+//  A UITableViewCell subclass that displays a text area with the movie's text details.
+//
 
 import UIKit
 

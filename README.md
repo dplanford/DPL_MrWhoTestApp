@@ -32,4 +32,4 @@ On the main movie list screen, I added a couple of extras. First, I added a pick
 - Pre-load the images for a movie list, and possibly keep a larger cache of images (the last 100?) that is not cleared on each movie list load.
 
 # Latest Work
-Late one night I found myself in a coding mood, and added an update... a first pass at search. I added a temporary button to do a movie search for "Totoro". I'll perhaps add a search bar later....
+Late one night I found myself in a coding mood, and added an update... a first pass at search with a search bar. I originally added a temporary button to do a movie search for "Totoro", which I've left, just because ;-).

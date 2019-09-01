@@ -18,18 +18,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" misplaced="YES" placeholder="Search Movies..." translatesAutoresizingMaskIntoConstraints="NO" id="rL6-j8-a8S">
+                                <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="DAS-Ri-hET"/>
+                                </connections>
+                            </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9s9-LM-uv5">
+                                <rect key="frame" x="8" y="76" width="52" height="30"/>
+                                <state key="normal" title="Totoro?"/>
+                                <connections>
+                                    <action selector="searchTryTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="7C8-6P-WS4"/>
+                                </connections>
+                            </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Za-vV-Vz1">
-                                <rect key="frame" x="0.0" y="20" width="414" height="216"/>
+                                <rect key="frame" x="0.0" y="76" width="414" height="216"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="lSI-ng-92N"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="pvT-Pc-1mW"/>
                                 </connections>
                             </pickerView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="HjY-Xd-GRm">
-                                <rect key="frame" x="374" y="118" width="20" height="20"/>
+                                <rect key="frame" x="374" y="174" width="20" height="20"/>
                             </activityIndicatorView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Min Vote (0-10)" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="nRX-kU-1mW">
-                                <rect key="frame" x="0.0" y="236" width="150" height="30"/>
+                                <rect key="frame" x="0.0" y="292" width="150" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="cto-mx-eYP"/>
                                 </constraints>
@@ -40,20 +54,20 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="fUG-Cg-5HZ"/>
                                 </connections>
                             </textField>
-                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="Tbe-aW-Wup">
-                                <rect key="frame" x="156" y="236" width="255" height="30"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="Tbe-aW-Wup">
+                                <rect key="frame" x="156" y="292" width="255" height="31"/>
                                 <connections>
                                     <action selector="minVoteSliderChanged" destination="BYZ-38-t0r" eventType="valueChanged" id="VY9-U8-nyr"/>
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minimum Vote Average:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdE-cA-zb2">
-                                <rect key="frame" x="0.0" y="220" width="143" height="16"/>
+                                <rect key="frame" x="0.0" y="276" width="143" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="RTl-W2-TaM">
-                                <rect key="frame" x="0.0" y="266" width="414" height="470"/>
+                                <rect key="frame" x="0.0" y="322" width="414" height="414"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WNu-cR-xil">
                                     <size key="itemSize" width="200" height="300"/>
@@ -101,32 +115,29 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="npa-AK-R7I"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9s9-LM-uv5">
-                                <rect key="frame" x="17" y="20" width="52" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Totoro?"/>
-                                <connections>
-                                    <action selector="searchTryTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="7C8-6P-WS4"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.63137254899999995" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="nRX-kU-1mW" firstAttribute="top" secondItem="kdE-cA-zb2" secondAttribute="bottom" id="HQS-6e-qud"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rL6-j8-a8S" secondAttribute="trailing" id="Jf0-N6-Y1t"/>
                             <constraint firstItem="nRX-kU-1mW" firstAttribute="top" secondItem="7Za-vV-Vz1" secondAttribute="bottom" id="MRI-Sd-AZB"/>
+                            <constraint firstItem="7Za-vV-Vz1" firstAttribute="top" secondItem="rL6-j8-a8S" secondAttribute="bottom" id="Mby-2L-iam"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RTl-W2-TaM" secondAttribute="trailing" id="TaC-i2-GZv"/>
                             <constraint firstItem="Tbe-aW-Wup" firstAttribute="centerY" secondItem="nRX-kU-1mW" secondAttribute="centerY" id="Ts5-qp-YwG"/>
                             <constraint firstItem="7Za-vV-Vz1" firstAttribute="trailing" secondItem="HjY-Xd-GRm" secondAttribute="trailing" constant="20" id="Wwd-YD-Tfz"/>
                             <constraint firstItem="7Za-vV-Vz1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XAx-4y-ejY"/>
+                            <constraint firstItem="9s9-LM-uv5" firstAttribute="leading" secondItem="rL6-j8-a8S" secondAttribute="leading" constant="8" id="bVZ-EZ-oai"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Tbe-aW-Wup" secondAttribute="trailing" constant="5" id="dEx-Fl-C7N"/>
                             <constraint firstItem="nRX-kU-1mW" firstAttribute="leading" secondItem="kdE-cA-zb2" secondAttribute="leading" id="hOh-T7-mtn"/>
                             <constraint firstItem="RTl-W2-TaM" firstAttribute="top" secondItem="nRX-kU-1mW" secondAttribute="bottom" id="izo-rB-7c4"/>
                             <constraint firstItem="nRX-kU-1mW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jNL-ED-szG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7Za-vV-Vz1" secondAttribute="trailing" id="ktD-uI-6EH"/>
-                            <constraint firstItem="7Za-vV-Vz1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ocB-Y8-5vp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="rL6-j8-a8S" secondAttribute="top" id="oIh-2h-SlS"/>
                             <constraint firstItem="HjY-Xd-GRm" firstAttribute="centerY" secondItem="7Za-vV-Vz1" secondAttribute="centerY" id="ooI-D7-CdQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="RTl-W2-TaM" secondAttribute="bottom" id="qGp-GG-lAp"/>
+                            <constraint firstItem="9s9-LM-uv5" firstAttribute="top" secondItem="rL6-j8-a8S" secondAttribute="bottom" id="ro7-K8-LXW"/>
                             <constraint firstItem="RTl-W2-TaM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uXj-DE-jS9"/>
+                            <constraint firstItem="rL6-j8-a8S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ut8-wd-MRQ"/>
                             <constraint firstItem="Tbe-aW-Wup" firstAttribute="leading" secondItem="nRX-kU-1mW" secondAttribute="trailing" constant="8" id="zjT-nQ-5om"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -137,6 +148,7 @@
                         <outlet property="movieCollectionView" destination="RTl-W2-TaM" id="gk3-iO-WZw"/>
                         <outlet property="movieListLoadingSpinner" destination="HjY-Xd-GRm" id="0TE-dB-FtR"/>
                         <outlet property="movieTypePickerView" destination="7Za-vV-Vz1" id="cdk-Vk-aRZ"/>
+                        <outlet property="searchBar" destination="rL6-j8-a8S" id="5u8-Hy-JAN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

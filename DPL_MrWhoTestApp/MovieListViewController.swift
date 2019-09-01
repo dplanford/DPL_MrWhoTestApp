@@ -17,8 +17,9 @@ import UIKit
 class MovieListViewController: UIViewController,
                                 UICollectionViewDelegate, UICollectionViewDataSource,
                                 UIPickerViewDelegate, UIPickerViewDataSource,
-                                UITextFieldDelegate {
+                                UITextFieldDelegate, UISearchBarDelegate {
 
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var movieTypePickerView: UIPickerView!
     @IBOutlet weak var movieListLoadingSpinner: UIActivityIndicatorView!
     @IBOutlet weak var minVoteTextField: UITextField!
@@ -73,6 +74,19 @@ class MovieListViewController: UIViewController,
 
             self.present(detailViewController, animated: true, completion: nil)
         }
+    }
+
+    // MARK: UISearchBarDelegate
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = self.searchBar.text, searchText.count > 0 else {
+            TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, text: "Totoro")
+            return
+        }
+
+        TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, text: self.searchBar.text)
+
+        searchBar.resignFirstResponder()
     }
 
     // MARK: UIPickerViewDataSource

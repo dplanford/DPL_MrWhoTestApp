@@ -78,7 +78,8 @@ class TMDbManager {
     public func getMovieList(_ listType: TMDbManager.MovieListType, text: String?) {
         var urlString = "\(TMDbManager.TMDbBaseURL)\(listType.listTypeURL())\(TMDbManager.TMDbAPIAccessKey)"
         if let validText = text {
-            urlString += "\(TMDbManager.tmdbSearchQuery)\(validText)"
+            let spaceAdjustedText = validText.replacingOccurrences(of: " ", with: "%20")
+            urlString += "\(TMDbManager.tmdbSearchQuery)\(spaceAdjustedText)"
         }
         //print("URL = \(urlString)")
 

@@ -27,48 +27,59 @@ class TMDbManager {
     public static let tmdbVoteAverage = "vote_average"
     public static let tmdbVoteCount = "vote_count"
     public static let tmdbOrigLanguage = "original_language"
+    public static let tmdbSearchQuery = "&query="
 
     public enum MovieListType: Int {
+        // 1st several define the main screen's picker view.
         case popular = 0
         case upcoming
         case nowPlaying
         case topRated
-
-        static func count() -> Int {
+        static func pickerListCount() -> Int {
             return 4
         }
 
+        // Other types of movie lists.
+        case search = 10
+
+        // Title string for this movie list type.
         func listTypeString() -> String {
             switch self {
             case .popular:      return "Popular"
             case .upcoming:     return "Upcoming"
             case .nowPlaying:   return "Now Playing"
             case .topRated:     return "Top Rated"
+            default:            return "Search"
             }
         }
 
+        // TMDb URL string for this movie list type.
         func listTypeURL() -> String {
             switch self {
             case .popular:      return "movie/popular"
             case .upcoming:     return "movie/upcoming"
             case .nowPlaying:   return "movie/now_playing"
             case .topRated:     return "movie/top_rated"
+            case .search:       return "search/movie"
             }
         }
     }
 
-    public var currentMovieList: [[String: Any]] = []
-    public var filteredMovieList: [Int] = []
+    public var currentMovieList: [[String: Any]] = []   // The currently loaded movie list.
+    public var filteredMovieList: [Int] = []    // The currently filtered and displayed subset of the loaded movie list.
 
-    private static let BaseURL = "https://api.themoviedb.org/3/"
-    private static let BaseImageURL = "https://image.tmdb.org/t/p/w500/"
+    private static let TMDbBaseURL = "https://api.themoviedb.org/3/"
+    private static let TMDbBaseImageURL = "https://image.tmdb.org/t/p/w500/"
     private static let TMDbAPIAccessKey = "?api_key=a868cc859b204425655c020f8b7eb2ab"
 
     private var currentMovieImageCache: [String: UIImage] = [:]
     private var voteAverageFilter: CGFloat = 0.0
 
-    public func getMovieList(_ listType: TMDbManager.MovieListType) {
-        let urlString = "\(TMDbManager.BaseURL)\(listType.listTypeURL())\(TMDbManager.TMDbAPIAccessKey)"
+    public func getMovieList(_ listType: TMDbManager.MovieListType, text: String?) {
+        var urlString = "\(TMDbManager.TMDbBaseURL)\(listType.listTypeURL())\(TMDbManager.TMDbAPIAccessKey)"
+        if let validText = text {
+            urlString += "\(TMDbManager.tmdbSearchQuery)\(validText)"
+        }
         //print("URL = \(urlString)")
 
         guard let url = URL(string: urlString) else {
@@ -131,7 +142,7 @@ class TMDbManager {
         }
 
         // get a new image from the TMDb server.
-        let urlString = "\(TMDbManager.BaseImageURL)\(fileName)\(TMDbManager.TMDbAPIAccessKey)"
+        let urlString = "\(TMDbManager.TMDbBaseImageURL)\(fileName)\(TMDbManager.TMDbAPIAccessKey)"
         //print("Image URL = \(urlString)")
 
         guard let url = URL(string: urlString) else {

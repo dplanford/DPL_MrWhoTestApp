@@ -33,7 +33,7 @@ class MovieListViewController: UIViewController,
         self.minVoteTextField.addTarget(self, action: #selector(updateVoteFilter), for: .editingChanged)
 
         self.movieListLoadingSpinner.startAnimating()
-        TMDbManager.shared.getMovieList(.popular)
+        TMDbManager.shared.getMovieList(.popular, text: nil)
 
         self.minVoteSliderChanged()
     }
@@ -82,7 +82,7 @@ class MovieListViewController: UIViewController,
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return TMDbManager.MovieListType.count()
+        return TMDbManager.MovieListType.pickerListCount()
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -98,7 +98,7 @@ class MovieListViewController: UIViewController,
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if let listType = TMDbManager.MovieListType(rawValue: row) {
             self.movieListLoadingSpinner.startAnimating()
-            TMDbManager.shared.getMovieList(listType)
+            TMDbManager.shared.getMovieList(listType, text: nil)
         }
     }
 
@@ -150,6 +150,10 @@ class MovieListViewController: UIViewController,
         self.minVoteTextField.text = String(voteFilter)
 
         TMDbManager.shared.filterMovieList(voteAverage: CGFloat(voteFilter))
+    }
+
+    @IBAction func searchTryTapped() {
+        TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, text: "totoro")
     }
 }
 

@@ -101,6 +101,14 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="npa-AK-R7I"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9s9-LM-uv5">
+                                <rect key="frame" x="17" y="20" width="52" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Totoro?"/>
+                                <connections>
+                                    <action selector="searchTryTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="7C8-6P-WS4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.63137254899999995" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -167,7 +175,7 @@
                                 <rect key="frame" x="0.0" y="110" width="414" height="626"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieDetailPosterCell" rowHeight="400" id="rAp-C2-WnG" customClass="MovieDetailPosterCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieDetailPosterCell" rowHeight="400" id="rAp-C2-WnG" customClass="MovieDetailPosterCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="400"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rAp-C2-WnG" id="p8b-Nd-3N9">
@@ -189,7 +197,7 @@
                                             <outlet property="posterImageView" destination="YKM-tg-7uh" id="hOL-Lg-lB7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieDetailDescriptionCell" rowHeight="200" id="P3u-GU-U6u" customClass="MovieDetailDescriptionCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieDetailDescriptionCell" rowHeight="200" id="P3u-GU-U6u" customClass="MovieDetailDescriptionCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="428" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P3u-GU-U6u" id="cpc-0E-DeK">

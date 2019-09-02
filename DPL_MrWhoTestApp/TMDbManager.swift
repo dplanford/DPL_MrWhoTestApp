@@ -136,6 +136,10 @@ class TMDbManager {
         task.resume()
     }
 
+    public func getSimpleMovieList(_ listType: TMDbManager.MovieListType) {
+        self.getMovieList(listType, filterText: nil)
+    }
+
     public func getMovieImage(fileName: String) -> UIImage? {
         if let image = self.currentMovieImageCache[fileName] {
             // return cached image.

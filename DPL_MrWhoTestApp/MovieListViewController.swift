@@ -34,7 +34,7 @@ class MovieListViewController: UIViewController,
         self.minVoteTextField.addTarget(self, action: #selector(updateVoteFilter), for: .editingChanged)
 
         self.movieListLoadingSpinner.startAnimating()
-        TMDbManager.shared.getMovieList(.popular, filterText: nil)
+        TMDbManager.shared.getSimpleMovieList(.popular)
 
         self.minVoteSliderChanged()
     }
@@ -88,7 +88,7 @@ class MovieListViewController: UIViewController,
             return
         }
 
-        TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, filterText: searchBar.text)
+        TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, filterText: searchText)
     }
 
     // MARK: UIPickerViewDataSource
@@ -114,7 +114,7 @@ class MovieListViewController: UIViewController,
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if let listType = TMDbManager.MovieListType(rawValue: row) {
             self.movieListLoadingSpinner.startAnimating()
-            TMDbManager.shared.getMovieList(listType, filterText: nil)
+            TMDbManager.shared.getSimpleMovieList(listType)
         }
     }
 

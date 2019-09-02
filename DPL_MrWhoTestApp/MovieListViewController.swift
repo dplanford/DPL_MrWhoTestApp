@@ -34,7 +34,7 @@ class MovieListViewController: UIViewController,
         self.minVoteTextField.addTarget(self, action: #selector(updateVoteFilter), for: .editingChanged)
 
         self.movieListLoadingSpinner.startAnimating()
-        TMDbManager.shared.getMovieList(.popular, text: nil)
+        TMDbManager.shared.getMovieList(.popular, filterText: nil)
 
         self.minVoteSliderChanged()
     }
@@ -79,14 +79,16 @@ class MovieListViewController: UIViewController,
     // MARK: UISearchBarDelegate
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchText = self.searchBar.text, searchText.count > 0 else {
-            TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, text: "Totoro")
+        // Dismiss the search keyboard.
+        searchBar.resignFirstResponder()
+
+        guard let searchText = searchBar.text, searchText.count > 0 else {
+            // Error... do default search (for Totoro).
+            self.searchTotoro()
             return
         }
 
-        TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, text: self.searchBar.text)
-
-        searchBar.resignFirstResponder()
+        TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, filterText: searchBar.text)
     }
 
     // MARK: UIPickerViewDataSource
@@ -112,7 +114,7 @@ class MovieListViewController: UIViewController,
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if let listType = TMDbManager.MovieListType(rawValue: row) {
             self.movieListLoadingSpinner.startAnimating()
-            TMDbManager.shared.getMovieList(listType, text: nil)
+            TMDbManager.shared.getMovieList(listType, filterText: nil)
         }
     }
 
@@ -166,8 +168,8 @@ class MovieListViewController: UIViewController,
         TMDbManager.shared.filterMovieList(voteAverage: CGFloat(voteFilter))
     }
 
-    @IBAction func searchTryTapped() {
-        TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, text: "totoro")
+    @IBAction func searchTotoro() {
+        TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, filterText: "totoro")
     }
 }
 

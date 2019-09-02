@@ -75,9 +75,9 @@ class TMDbManager {
     private var currentMovieImageCache: [String: UIImage] = [:]
     private var voteAverageFilter: CGFloat = 0.0
 
-    public func getMovieList(_ listType: TMDbManager.MovieListType, text: String?) {
+    public func getMovieList(_ listType: TMDbManager.MovieListType, filterText: String?) {
         var urlString = "\(TMDbManager.TMDbBaseURL)\(listType.listTypeURL())\(TMDbManager.TMDbAPIAccessKey)"
-        if let validText = text {
+        if let validText = filterText {
             let spaceAdjustedText = validText.replacingOccurrences(of: " ", with: "%20")
             urlString += "\(TMDbManager.tmdbSearchQuery)\(spaceAdjustedText)"
         }

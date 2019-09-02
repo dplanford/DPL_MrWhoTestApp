@@ -25,13 +25,6 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="DAS-Ri-hET"/>
                                 </connections>
                             </searchBar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9s9-LM-uv5">
-                                <rect key="frame" x="8" y="76" width="52" height="30"/>
-                                <state key="normal" title="Totoro?"/>
-                                <connections>
-                                    <action selector="searchTryTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="7C8-6P-WS4"/>
-                                </connections>
-                            </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Za-vV-Vz1">
                                 <rect key="frame" x="0.0" y="76" width="414" height="216"/>
                                 <connections>
@@ -66,6 +59,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9s9-LM-uv5">
+                                <rect key="frame" x="8" y="76" width="52" height="30"/>
+                                <state key="normal" title="Totoro?"/>
+                                <connections>
+                                    <action selector="searchTryTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="7C8-6P-WS4"/>
+                                </connections>
+                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="RTl-W2-TaM">
                                 <rect key="frame" x="0.0" y="322" width="414" height="414"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

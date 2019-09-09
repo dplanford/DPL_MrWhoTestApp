@@ -76,6 +76,10 @@ class TMDbManager {
     private var currentMovieImageCache: [String: UIImage] = [:]
     private var voteAverageFilter: CGFloat = 0.0
 
+    // TODO: Func (bool return) to add (if possible) is-next-page-available for this movie search list?
+    //  - a call to ask if more pages available, so I can enable/disable next button accordingly....
+    //  - previous page can just be page >= 0....
+
     public func getMovieList(_ listType: TMDbManager.MovieListType, searchText: String?, page: Int?) {
         var urlString = "\(TMDbManager.TMDbBaseURL)\(listType.listTypeURL())\(TMDbManager.TMDbAPIAccessKey)"
         if let validSearchText = searchText {

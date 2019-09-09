@@ -28,6 +28,7 @@ class TMDbManager {
     public static let tmdbVoteCount = "vote_count"
     public static let tmdbOrigLanguage = "original_language"
     public static let tmdbSearchQuery = "&query="
+    public static let tmdbSearchPage = "&page="
 
     public enum MovieListType: Int {
         // 1st several define the main screen's picker view.
@@ -75,12 +76,18 @@ class TMDbManager {
     private var currentMovieImageCache: [String: UIImage] = [:]
     private var voteAverageFilter: CGFloat = 0.0
 
-    public func getMovieList(_ listType: TMDbManager.MovieListType, filterText: String?) {
+    public func getMovieList(_ listType: TMDbManager.MovieListType, searchText: String?, page: Int?) {
         var urlString = "\(TMDbManager.TMDbBaseURL)\(listType.listTypeURL())\(TMDbManager.TMDbAPIAccessKey)"
-        if let validText = filterText {
-            let spaceAdjustedText = validText.replacingOccurrences(of: " ", with: "%20")
+        if let validSearchText = searchText {
+            let spaceAdjustedText = validSearchText.replacingOccurrences(of: " ", with: "%20")
             urlString += "\(TMDbManager.tmdbSearchQuery)\(spaceAdjustedText)"
+
         }
+
+        if let validPage = page {
+            urlString += "\(TMDbManager.tmdbSearchPage)\(validPage)"
+        }
+
         //print("URL = \(urlString)")
 
         guard let url = URL(string: urlString) else {
@@ -137,7 +144,7 @@ class TMDbManager {
     }
 
     public func getSimpleMovieList(_ listType: TMDbManager.MovieListType) {
-        self.getMovieList(listType, filterText: nil)
+        self.getMovieList(listType, searchText: nil, page: nil)
     }
 
     public func getMovieImage(fileName: String) -> UIImage? {

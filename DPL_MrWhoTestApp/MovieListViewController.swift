@@ -88,7 +88,7 @@ class MovieListViewController: UIViewController,
             return
         }
 
-        TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, filterText: searchText)
+        TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, searchText: searchText, page: nil)
     }
 
     // MARK: UIPickerViewDataSource
@@ -169,7 +169,7 @@ class MovieListViewController: UIViewController,
     }
 
     @IBAction func searchTotoro() {
-        TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, filterText: "totoro")
+        TMDbManager.shared.getMovieList(TMDbManager.MovieListType.search, searchText: "totoro", page: nil)
     }
 }
 

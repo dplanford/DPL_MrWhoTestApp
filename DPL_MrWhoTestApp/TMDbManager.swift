@@ -20,7 +20,7 @@ class TMDbManager {
 
     // TMDb keys.
     public static let tmdbResults = "results"
-    public static let tmdbTotaslPages = "total_pages"
+    public static let tmdbTotalPages = "total_pages"
     public static let tmdbTitle = "title"
     public static let tmdbPosterPath = "poster_path"
     public static let tmdbOverview = "overview"
@@ -72,7 +72,7 @@ class TMDbManager {
 
     public var currentListType = TMDbManager.MovieListType.popular
     public var totalPages = 1
-    public var currentPage = 0
+    public var currentPage = 1
 
     private static let TMDbBaseURL = "https://api.themoviedb.org/3/"
     private static let TMDbBaseImageURL = "https://image.tmdb.org/t/p/w500/"
@@ -101,7 +101,7 @@ class TMDbManager {
 
             self.currentPage = validPage
         } else {
-            self.currentPage = 0
+            self.currentPage = 1
         }
 
         //print("URL = \(urlString)")
@@ -152,8 +152,7 @@ class TMDbManager {
                return
             }
 
-            if let totalPagesString = content[TMDbManager.tmdbTotaslPages] as? String,
-                let validTotalPages = Int(totalPagesString) {
+            if let validTotalPages = content[TMDbManager.tmdbTotalPages] as? Int {
                 self.totalPages = validTotalPages
             } else {
                 self.totalPages = 1
@@ -173,7 +172,7 @@ class TMDbManager {
     }
 
     public func getMovieListPreviousPage() {
-        guard self.currentPage > 0 else {
+        guard self.currentPage > 1 else {
             // Already on the first page, no previous page available.
             return
         }
@@ -184,7 +183,7 @@ class TMDbManager {
     }
 
     public func getMovieListNextPage() {
-        guard self.currentPage < self.totalPages - 1 else {
+        guard self.currentPage < self.totalPages else {
             // Already on the last page, no next page available.
             return
         }

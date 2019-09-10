@@ -71,13 +71,13 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WNu-cR-xil">
                                     <size key="itemSize" width="200" height="300"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MovieListViewCell" id="doV-g9-XDA" customClass="MovieListViewCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
+                                        <rect key="frame" x="0.0" y="50" width="200" height="300"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
@@ -110,24 +110,65 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="CZ2-Ax-K6f">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="yxC-Dr-3qb"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="npa-AK-R7I"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fRV-xf-HJa" userLabel="Previous Page Button">
+                                <rect key="frame" x="10" y="327" width="40" height="40"/>
+                                <color key="backgroundColor" red="0.65490196079999996" green="0.65490196079999996" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="5lq-rG-6Xt"/>
+                                    <constraint firstAttribute="width" constant="40" id="JlO-TT-b6Z"/>
+                                </constraints>
+                                <state key="normal" image="previousPage"/>
+                                <connections>
+                                    <action selector="previousPageClicked" destination="BYZ-38-t0r" eventType="touchUpInside" id="SHO-Uz-aeP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rqW-5w-FAr" userLabel="Next Page Button">
+                                <rect key="frame" x="364" y="327" width="40" height="40"/>
+                                <color key="backgroundColor" red="0.65490196079999996" green="0.65490196079999996" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="BSc-5H-kb4"/>
+                                    <constraint firstAttribute="height" constant="40" id="ZtU-h0-Urq"/>
+                                </constraints>
+                                <state key="normal" image="nextPage"/>
+                                <connections>
+                                    <action selector="nextPageClicked" destination="BYZ-38-t0r" eventType="touchUpInside" id="fdV-WN-c8t"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Page Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GtN-nZ-Zrn" userLabel="Page Count Label">
+                                <rect key="frame" x="141.33333333333331" y="330.33333333333331" width="131.33333333333331" height="33.333333333333314"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.63137254899999995" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="fRV-xf-HJa" firstAttribute="leading" secondItem="RTl-W2-TaM" secondAttribute="leading" constant="10" id="34L-MN-Fes"/>
+                            <constraint firstItem="RTl-W2-TaM" firstAttribute="trailing" secondItem="rqW-5w-FAr" secondAttribute="trailing" constant="10" id="5Ec-1K-l1L"/>
                             <constraint firstItem="nRX-kU-1mW" firstAttribute="top" secondItem="kdE-cA-zb2" secondAttribute="bottom" id="HQS-6e-qud"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rL6-j8-a8S" secondAttribute="trailing" id="Jf0-N6-Y1t"/>
                             <constraint firstItem="nRX-kU-1mW" firstAttribute="top" secondItem="7Za-vV-Vz1" secondAttribute="bottom" id="MRI-Sd-AZB"/>
                             <constraint firstItem="7Za-vV-Vz1" firstAttribute="top" secondItem="rL6-j8-a8S" secondAttribute="bottom" id="Mby-2L-iam"/>
+                            <constraint firstItem="rqW-5w-FAr" firstAttribute="top" secondItem="RTl-W2-TaM" secondAttribute="top" constant="5" id="Nj5-s7-0S4"/>
+                            <constraint firstItem="fRV-xf-HJa" firstAttribute="top" secondItem="RTl-W2-TaM" secondAttribute="top" constant="5" id="NoY-z3-ipt"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RTl-W2-TaM" secondAttribute="trailing" id="TaC-i2-GZv"/>
                             <constraint firstItem="Tbe-aW-Wup" firstAttribute="centerY" secondItem="nRX-kU-1mW" secondAttribute="centerY" id="Ts5-qp-YwG"/>
                             <constraint firstItem="7Za-vV-Vz1" firstAttribute="trailing" secondItem="HjY-Xd-GRm" secondAttribute="trailing" constant="20" id="Wwd-YD-Tfz"/>
                             <constraint firstItem="7Za-vV-Vz1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XAx-4y-ejY"/>
                             <constraint firstItem="9s9-LM-uv5" firstAttribute="leading" secondItem="rL6-j8-a8S" secondAttribute="leading" constant="8" id="bVZ-EZ-oai"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Tbe-aW-Wup" secondAttribute="trailing" constant="5" id="dEx-Fl-C7N"/>
+                            <constraint firstItem="GtN-nZ-Zrn" firstAttribute="centerY" secondItem="fRV-xf-HJa" secondAttribute="centerY" id="fzw-ia-FLd"/>
                             <constraint firstItem="nRX-kU-1mW" firstAttribute="leading" secondItem="kdE-cA-zb2" secondAttribute="leading" id="hOh-T7-mtn"/>
                             <constraint firstItem="RTl-W2-TaM" firstAttribute="top" secondItem="nRX-kU-1mW" secondAttribute="bottom" id="izo-rB-7c4"/>
                             <constraint firstItem="nRX-kU-1mW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jNL-ED-szG"/>
@@ -136,6 +177,7 @@
                             <constraint firstItem="HjY-Xd-GRm" firstAttribute="centerY" secondItem="7Za-vV-Vz1" secondAttribute="centerY" id="ooI-D7-CdQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="RTl-W2-TaM" secondAttribute="bottom" id="qGp-GG-lAp"/>
                             <constraint firstItem="9s9-LM-uv5" firstAttribute="top" secondItem="rL6-j8-a8S" secondAttribute="bottom" id="ro7-K8-LXW"/>
+                            <constraint firstItem="GtN-nZ-Zrn" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="tVB-GU-78I"/>
                             <constraint firstItem="RTl-W2-TaM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uXj-DE-jS9"/>
                             <constraint firstItem="rL6-j8-a8S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ut8-wd-MRQ"/>
                             <constraint firstItem="Tbe-aW-Wup" firstAttribute="leading" secondItem="nRX-kU-1mW" secondAttribute="trailing" constant="8" id="zjT-nQ-5om"/>
@@ -148,6 +190,9 @@
                         <outlet property="movieCollectionView" destination="RTl-W2-TaM" id="gk3-iO-WZw"/>
                         <outlet property="movieListLoadingSpinner" destination="HjY-Xd-GRm" id="0TE-dB-FtR"/>
                         <outlet property="movieTypePickerView" destination="7Za-vV-Vz1" id="cdk-Vk-aRZ"/>
+                        <outlet property="nextPageButton" destination="rqW-5w-FAr" id="Xrg-r7-CbD"/>
+                        <outlet property="pageCountLabel" destination="GtN-nZ-Zrn" id="J68-DF-Ckz"/>
+                        <outlet property="previousPageButton" destination="fRV-xf-HJa" id="n8K-cw-SLR"/>
                         <outlet property="searchBar" destination="rL6-j8-a8S" id="5u8-Hy-JAN"/>
                     </connections>
                 </viewController>
@@ -187,7 +232,7 @@
                                 <rect key="frame" x="0.0" y="110" width="414" height="626"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieDetailPosterCell" rowHeight="400" id="rAp-C2-WnG" customClass="MovieDetailPosterCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieDetailPosterCell" rowHeight="400" id="rAp-C2-WnG" customClass="MovieDetailPosterCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="400"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rAp-C2-WnG" id="p8b-Nd-3N9">
@@ -209,7 +254,7 @@
                                             <outlet property="posterImageView" destination="YKM-tg-7uh" id="hOL-Lg-lB7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieDetailDescriptionCell" rowHeight="200" id="P3u-GU-U6u" customClass="MovieDetailDescriptionCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieDetailDescriptionCell" rowHeight="200" id="P3u-GU-U6u" customClass="MovieDetailDescriptionCell" customModule="DPL_MrWhoTestApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="428" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P3u-GU-U6u" id="cpc-0E-DeK">
@@ -267,5 +312,7 @@
     </scenes>
     <resources>
         <image name="back-arrow" width="200" height="200"/>
+        <image name="nextPage" width="40" height="40"/>
+        <image name="previousPage" width="40" height="40"/>
     </resources>
 </document>

@@ -115,8 +115,8 @@
 				E708D896230A221F00240EEF /* MovieDetailDescriptionCell.swift */,
 				E7A30D462308F2AB00F36BC3 /* TMDbManager.swift */,
 				E7A30D1C2308F25B00F36BC3 /* Main.storyboard */,
-				E7A30D1F2308F25B00F36BC3 /* Assets.xcassets */,
 				E7A30D212308F25B00F36BC3 /* LaunchScreen.storyboard */,
+				E7A30D1F2308F25B00F36BC3 /* Assets.xcassets */,
 				E7A30D242308F25B00F36BC3 /* Info.plist */,
 			);
 			path = DPL_MrWhoTestApp;

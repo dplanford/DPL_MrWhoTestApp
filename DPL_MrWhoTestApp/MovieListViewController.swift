@@ -25,9 +25,15 @@ class MovieListViewController: UIViewController,
     @IBOutlet weak var minVoteTextField: UITextField!
     @IBOutlet weak var minVoteSlider: UISlider!
     @IBOutlet weak var movieCollectionView: UICollectionView!
+    @IBOutlet weak var previousPageButton: UIButton!
+    @IBOutlet weak var nextPageButton: UIButton!
+    @IBOutlet weak var pageCountLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.previousPageButton.layer.cornerRadius = 20.0
+        self.nextPageButton.layer.cornerRadius = 20.0
 
         NotificationCenter.default.addObserver(self, selector: #selector(redrawMovieList), name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil)
 
@@ -155,10 +161,23 @@ class MovieListViewController: UIViewController,
         DispatchQueue.main.async { [weak self] in
             self?.movieListLoadingSpinner.stopAnimating()
             self?.movieCollectionView.reloadData()
+
+            self?.previousPageButton.isHidden = TMDbManager.shared.currentPage <= 1
+            self?.nextPageButton.isHidden = TMDbManager.shared.currentPage >= TMDbManager.shared.totalPages
+
+            self?.pageCountLabel?.text = "Page \(TMDbManager.shared.currentPage) of \(TMDbManager.shared.totalPages)"
         }
     }
 
     // MARK: IBActions
+
+    @IBAction func previousPageClicked() {
+        TMDbManager.shared.getMovieListPreviousPage()
+    }
+
+    @IBAction func nextPageClicked() {
+        TMDbManager.shared.getMovieListNextPage()
+    }
 
     @IBAction func minVoteSliderChanged() {
         let voteFilter = self.minVoteSlider.value

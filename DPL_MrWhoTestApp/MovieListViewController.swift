@@ -26,7 +26,9 @@ class MovieListViewController: UIViewController,
     @IBOutlet weak var minVoteSlider: UISlider!
     @IBOutlet weak var movieCollectionView: UICollectionView!
     @IBOutlet weak var previousPageButton: UIButton!
+    @IBOutlet weak var previousPageActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var nextPageButton: UIButton!
+    @IBOutlet weak var nextPageActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var pageCountLabel: UILabel!
 
     override func viewDidLoad() {
@@ -163,7 +165,12 @@ class MovieListViewController: UIViewController,
             self?.movieCollectionView.reloadData()
 
             self?.previousPageButton.isHidden = TMDbManager.shared.currentPage <= 1
+            self?.previousPageButton.isEnabled = true
+            self?.previousPageActivityIndicator.stopAnimating()
+
             self?.nextPageButton.isHidden = TMDbManager.shared.currentPage >= TMDbManager.shared.totalPages
+            self?.nextPageButton.isEnabled = true
+            self?.nextPageActivityIndicator.stopAnimating()
 
             self?.pageCountLabel?.text = "Page \(TMDbManager.shared.currentPage) of \(TMDbManager.shared.totalPages)"
         }
@@ -172,10 +179,16 @@ class MovieListViewController: UIViewController,
     // MARK: IBActions
 
     @IBAction func previousPageClicked() {
+        self.previousPageButton.isEnabled = false
+        self.previousPageActivityIndicator.startAnimating()
+
         TMDbManager.shared.getMovieListPreviousPage()
     }
 
     @IBAction func nextPageClicked() {
+        self.nextPageButton.isEnabled = false
+        self.nextPageActivityIndicator.startAnimating()
+
         TMDbManager.shared.getMovieListNextPage()
     }
 

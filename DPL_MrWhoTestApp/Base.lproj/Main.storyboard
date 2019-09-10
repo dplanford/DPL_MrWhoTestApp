@@ -131,6 +131,9 @@
                                     <action selector="previousPageClicked" destination="BYZ-38-t0r" eventType="touchUpInside" id="SHO-Uz-aeP"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="V6g-3b-23O" userLabel="Previous Page Activity Indicator">
+                                <rect key="frame" x="20" y="337" width="20" height="20"/>
+                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rqW-5w-FAr" userLabel="Next Page Button">
                                 <rect key="frame" x="364" y="327" width="40" height="40"/>
                                 <color key="backgroundColor" red="0.65490196079999996" green="0.65490196079999996" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -151,6 +154,9 @@
                                 <color key="shadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <size key="shadowOffset" width="1" height="1"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="zqu-33-6zj">
+                                <rect key="frame" x="374" y="337" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.63137254899999995" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -162,10 +168,13 @@
                             <constraint firstItem="7Za-vV-Vz1" firstAttribute="top" secondItem="rL6-j8-a8S" secondAttribute="bottom" id="Mby-2L-iam"/>
                             <constraint firstItem="rqW-5w-FAr" firstAttribute="top" secondItem="RTl-W2-TaM" secondAttribute="top" constant="5" id="Nj5-s7-0S4"/>
                             <constraint firstItem="fRV-xf-HJa" firstAttribute="top" secondItem="RTl-W2-TaM" secondAttribute="top" constant="5" id="NoY-z3-ipt"/>
+                            <constraint firstItem="zqu-33-6zj" firstAttribute="centerX" secondItem="rqW-5w-FAr" secondAttribute="centerX" id="SnT-zM-brS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RTl-W2-TaM" secondAttribute="trailing" id="TaC-i2-GZv"/>
                             <constraint firstItem="Tbe-aW-Wup" firstAttribute="centerY" secondItem="nRX-kU-1mW" secondAttribute="centerY" id="Ts5-qp-YwG"/>
                             <constraint firstItem="7Za-vV-Vz1" firstAttribute="trailing" secondItem="HjY-Xd-GRm" secondAttribute="trailing" constant="20" id="Wwd-YD-Tfz"/>
                             <constraint firstItem="7Za-vV-Vz1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XAx-4y-ejY"/>
+                            <constraint firstItem="zqu-33-6zj" firstAttribute="centerY" secondItem="rqW-5w-FAr" secondAttribute="centerY" id="ZHx-jq-tGx"/>
+                            <constraint firstItem="V6g-3b-23O" firstAttribute="centerX" secondItem="fRV-xf-HJa" secondAttribute="centerX" id="aZR-KN-m0E"/>
                             <constraint firstItem="9s9-LM-uv5" firstAttribute="leading" secondItem="rL6-j8-a8S" secondAttribute="leading" constant="8" id="bVZ-EZ-oai"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Tbe-aW-Wup" secondAttribute="trailing" constant="5" id="dEx-Fl-C7N"/>
                             <constraint firstItem="GtN-nZ-Zrn" firstAttribute="centerY" secondItem="fRV-xf-HJa" secondAttribute="centerY" id="fzw-ia-FLd"/>
@@ -180,6 +189,7 @@
                             <constraint firstItem="GtN-nZ-Zrn" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="tVB-GU-78I"/>
                             <constraint firstItem="RTl-W2-TaM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uXj-DE-jS9"/>
                             <constraint firstItem="rL6-j8-a8S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ut8-wd-MRQ"/>
+                            <constraint firstItem="V6g-3b-23O" firstAttribute="centerY" secondItem="fRV-xf-HJa" secondAttribute="centerY" id="xTP-Vj-3CQ"/>
                             <constraint firstItem="Tbe-aW-Wup" firstAttribute="leading" secondItem="nRX-kU-1mW" secondAttribute="trailing" constant="8" id="zjT-nQ-5om"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -190,8 +200,10 @@
                         <outlet property="movieCollectionView" destination="RTl-W2-TaM" id="gk3-iO-WZw"/>
                         <outlet property="movieListLoadingSpinner" destination="HjY-Xd-GRm" id="0TE-dB-FtR"/>
                         <outlet property="movieTypePickerView" destination="7Za-vV-Vz1" id="cdk-Vk-aRZ"/>
+                        <outlet property="nextPageActivityIndicator" destination="zqu-33-6zj" id="SpH-fS-NuG"/>
                         <outlet property="nextPageButton" destination="rqW-5w-FAr" id="Xrg-r7-CbD"/>
                         <outlet property="pageCountLabel" destination="GtN-nZ-Zrn" id="J68-DF-Ckz"/>
+                        <outlet property="previousPageActivityIndicator" destination="V6g-3b-23O" id="LP6-Wz-bsL"/>
                         <outlet property="previousPageButton" destination="fRV-xf-HJa" id="n8K-cw-SLR"/>
                         <outlet property="searchBar" destination="rL6-j8-a8S" id="5u8-Hy-JAN"/>
                     </connections>

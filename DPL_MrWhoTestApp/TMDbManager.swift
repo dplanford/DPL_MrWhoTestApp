@@ -20,6 +20,7 @@ class TMDbManager {
 
     // TMDb keys.
     public static let tmdbResults = "results"
+    public static let tmdbTotaslPages = "total_pages"
     public static let tmdbTitle = "title"
     public static let tmdbPosterPath = "poster_path"
     public static let tmdbOverview = "overview"
@@ -69,27 +70,38 @@ class TMDbManager {
     public var currentMovieList: [[String: Any]] = []   // The currently loaded movie list.
     public var filteredMovieList: [Int] = []    // The currently filtered and displayed subset of the loaded movie list.
 
+    public var currentListType = TMDbManager.MovieListType.popular
+    public var totalPages = 1
+    public var currentPage = 0
+
     private static let TMDbBaseURL = "https://api.themoviedb.org/3/"
     private static let TMDbBaseImageURL = "https://image.tmdb.org/t/p/w500/"
     private static let TMDbAPIAccessKey = "?api_key=a868cc859b204425655c020f8b7eb2ab"
 
     private var currentMovieImageCache: [String: UIImage] = [:]
+    private var currentSearchText: String? = nil
     private var voteAverageFilter: CGFloat = 0.0
 
-    // TODO: Func (bool return) to add (if possible) is-next-page-available for this movie search list?
-    //  - a call to ask if more pages available, so I can enable/disable next button accordingly....
-    //  - previous page can just be page >= 0....
-
     public func getMovieList(_ listType: TMDbManager.MovieListType, searchText: String?, page: Int?) {
+        self.currentListType = listType
+
         var urlString = "\(TMDbManager.TMDbBaseURL)\(listType.listTypeURL())\(TMDbManager.TMDbAPIAccessKey)"
+
         if let validSearchText = searchText {
             let spaceAdjustedText = validSearchText.replacingOccurrences(of: " ", with: "%20")
             urlString += "\(TMDbManager.tmdbSearchQuery)\(spaceAdjustedText)"
 
+            self.currentSearchText = validSearchText
+        } else {
+            self.currentSearchText = nil
         }
 
         if let validPage = page {
             urlString += "\(TMDbManager.tmdbSearchPage)\(validPage)"
+
+            self.currentPage = validPage
+        } else {
+            self.currentPage = 0
         }
 
         //print("URL = \(urlString)")
@@ -132,10 +144,19 @@ class TMDbManager {
                 return
             }
 
+            //print(content)
+
             guard let movieArray = content[TMDbManager.tmdbResults] as? [[String: Any]] else {
                 print("Error - response dictionary results does not parse to an array of dictionaries")
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
                return
+            }
+
+            if let totalPagesString = content[TMDbManager.tmdbTotaslPages] as? String,
+                let validTotalPages = Int(totalPagesString) {
+                self.totalPages = validTotalPages
+            } else {
+                self.totalPages = 1
             }
 
             self.currentMovieList = movieArray
@@ -149,6 +170,28 @@ class TMDbManager {
 
     public func getSimpleMovieList(_ listType: TMDbManager.MovieListType) {
         self.getMovieList(listType, searchText: nil, page: nil)
+    }
+
+    public func getMovieListPreviousPage() {
+        guard self.currentPage > 0 else {
+            // Already on the first page, no previous page available.
+            return
+        }
+
+        self.currentPage -= 1
+
+        self.getMovieList(self.currentListType, searchText: self.currentSearchText, page: self.currentPage)
+    }
+
+    public func getMovieListNextPage() {
+        guard self.currentPage < self.totalPages - 1 else {
+            // Already on the last page, no next page available.
+            return
+        }
+
+        self.currentPage += 1
+
+        self.getMovieList(self.currentListType, searchText: self.currentSearchText, page: self.currentPage)
     }
 
     public func getMovieImage(fileName: String) -> UIImage? {

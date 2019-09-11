@@ -1,6 +1,6 @@
 //
 //  MovieListViewCell.swift
-//  DPL-TMDb-TestApp
+//  DPL_MrWhoTestApp
 //
 //  Created by Douglas Lanford on 8/17/19.
 //  Copyright © 2019 Douglas Lanford. All rights reserved.

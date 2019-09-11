@@ -1,6 +1,6 @@
 //
 //  TMDbManager.swift
-//  DPL-TMDb-TestApp
+//  DPL_MrWhoTestApp
 //
 //  Created by Douglas Lanford on 8/17/19.
 //  Copyright © 2019 Douglas Lanford. All rights reserved.
@@ -32,11 +32,12 @@ class TMDbManager {
     public static let tmdbSearchPage = "&page="
 
     public enum MovieListType: Int {
-        // 1st several define the main screen's picker view.
+        // First several define the main screen's picker view.
         case popular = 0
-        case upcoming
-        case nowPlaying
-        case topRated
+        case upcoming = 1
+        case nowPlaying = 2
+        case topRated = 3
+
         static func pickerListCount() -> Int {
             return 4
         }
@@ -83,31 +84,8 @@ class TMDbManager {
     private var voteAverageFilter: CGFloat = 0.0
 
     public func getMovieList(_ listType: TMDbManager.MovieListType, searchText: String?, page: Int?) {
-        self.currentListType = listType
-
-        var urlString = "\(TMDbManager.TMDbBaseURL)\(listType.listTypeURL())\(TMDbManager.TMDbAPIAccessKey)"
-
-        if let validSearchText = searchText {
-            let spaceAdjustedText = validSearchText.replacingOccurrences(of: " ", with: "%20")
-            urlString += "\(TMDbManager.tmdbSearchQuery)\(spaceAdjustedText)"
-
-            self.currentSearchText = validSearchText
-        } else {
-            self.currentSearchText = nil
-        }
-
-        if let validPage = page {
-            urlString += "\(TMDbManager.tmdbSearchPage)\(validPage)"
-
-            self.currentPage = validPage
-        } else {
-            self.currentPage = 1
-        }
-
-        //print("URL = \(urlString)")
-
-        guard let url = URL(string: urlString) else {
-            print("Error - URL string is invalid")
+        guard let url = self.getMovieListURL(listType, searchText: searchText, page: page) else {
+            print("Error - Null movie list URL returned.")
             return
         }
 
@@ -117,49 +95,8 @@ class TMDbManager {
 
         let urlSession = URLSession(configuration: URLSessionConfiguration.default)
         let task = urlSession.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            self.currentMovieList = []
-            self.currentMovieImageCache = [:] // reset image cache for the new movie list
-
-            if error != nil {
-                print("Response Error: \(error.debugDescription)")
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
-                return
-            }
-
-            guard let validData = data else {
-                print("Error - response data is empty")
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
-                return
-            }
-
-            guard let jsonData = try? JSONSerialization.jsonObject(with: validData, options: .allowFragments) else {
-                print("Error - response data could not be parsed to JSON")
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
-                return
-            }
-
-            guard let content = jsonData as? [String: Any] else {
-                print("Error - response JSON does not parse to a dictionary")
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
-                return
-            }
-
-            //print(content)
-
-            guard let movieArray = content[TMDbManager.tmdbResults] as? [[String: Any]] else {
-                print("Error - response dictionary results does not parse to an array of dictionaries")
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
-               return
-            }
-
-            if let validTotalPages = content[TMDbManager.tmdbTotalPages] as? Int {
-                self.totalPages = validTotalPages
-            } else {
-                self.totalPages = 1
-            }
-
-            self.currentMovieList = movieArray
-            //print(self.currentMovieList)
+            // Handle the Async response to the TMDb request.
+            self.processMovieListResponse(data: data, error: error)
 
             TMDbManager.shared.filterMovieList(voteAverage: self.voteAverageFilter)
         }
@@ -199,12 +136,8 @@ class TMDbManager {
             return image
         }
 
-        // get a new image from the TMDb server.
-        let urlString = "\(TMDbManager.TMDbBaseImageURL)\(fileName)\(TMDbManager.TMDbAPIAccessKey)"
-        //print("Image URL = \(urlString)")
-
-        guard let url = URL(string: urlString) else {
-            print("Error - URL string is invalid")
+        guard let url = self.getMovieImageURL(fileName: fileName) else {
+            print("Error - image URL string is invalid")
             return nil
         }
 
@@ -219,6 +152,7 @@ class TMDbManager {
         return image
     }
 
+    // TODO: Add unit tests for this function, using pre-built test data?
     public func filterMovieList(voteAverage: CGFloat) {
         self.voteAverageFilter = voteAverage
         self.filteredMovieList = []
@@ -236,5 +170,100 @@ class TMDbManager {
 
         // Notify the app that a new movie list is available.
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
+    }
+
+    // MARK: Private functions.
+
+    // TODO: Add unit tests for this function!
+    private func getMovieListURL(_ listType: TMDbManager.MovieListType, searchText: String?, page: Int?) -> URL? {
+        self.currentListType = listType
+
+        var urlString = "\(TMDbManager.TMDbBaseURL)\(listType.listTypeURL())\(TMDbManager.TMDbAPIAccessKey)"
+
+        if let validSearchText = searchText {
+            let spaceAdjustedText = validSearchText.replacingOccurrences(of: " ", with: "%20")
+            urlString += "\(TMDbManager.tmdbSearchQuery)\(spaceAdjustedText)"
+
+            self.currentSearchText = validSearchText
+        } else {
+            self.currentSearchText = nil
+        }
+
+        if let validPage = page {
+            urlString += "\(TMDbManager.tmdbSearchPage)\(validPage)"
+
+            self.currentPage = validPage
+        } else {
+            self.currentPage = 1
+        }
+
+        //print("URL = \(urlString)")
+
+        guard let url = URL(string: urlString) else {
+            print("Error - URL string is invalid")
+            return nil
+        }
+
+        return url
+    }
+
+    // TODO: Add unit tests for this function!
+    private func getMovieImageURL(fileName: String) -> URL? {
+        let urlString = "\(TMDbManager.TMDbBaseImageURL)\(fileName)\(TMDbManager.TMDbAPIAccessKey)"
+        //print("Image URL = \(urlString)")
+
+        guard let url = URL(string: urlString) else {
+            print("Error - URL string is invalid")
+            return nil
+        }
+
+        return url
+    }
+
+    // TODO: Add unit tests for this function, using pre-built test data?
+    private func processMovieListResponse(data: Data?, error: Error?) {
+        self.currentMovieList = []
+        self.currentMovieImageCache = [:] // reset image cache for the new movie list
+
+        if error != nil {
+            print("Response Error: \(error.debugDescription)")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
+            return
+        }
+
+        guard let validData = data else {
+            print("Error - response data is empty")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
+            return
+        }
+
+        guard let jsonData = try? JSONSerialization.jsonObject(with: validData, options: .allowFragments) else {
+            print("Error - response data could not be parsed to JSON")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
+            return
+        }
+
+        guard let content = jsonData as? [String: Any] else {
+            print("Error - response JSON does not parse to a dictionary")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
+            return
+        }
+
+        //print(content)
+
+        guard let movieArray = content[TMDbManager.tmdbResults] as? [[String: Any]] else {
+            print("Error - response dictionary results does not parse to an array of dictionaries")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: TMDbManager.NewMovieListNotification), object: nil, userInfo: nil)
+            return
+        }
+
+        if let validTotalPages = content[TMDbManager.tmdbTotalPages] as? Int {
+            self.totalPages = validTotalPages
+        } else {
+            self.totalPages = 1
+        }
+
+        self.currentMovieList = movieArray
+        //print(self.currentMovieList)
     }
 }

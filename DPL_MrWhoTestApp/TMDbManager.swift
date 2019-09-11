@@ -75,13 +75,13 @@ class TMDbManager {
     public var totalPages = 1
     public var currentPage = 1
 
-    private static let TMDbBaseURL = "https://api.themoviedb.org/3/"
-    private static let TMDbBaseImageURL = "https://image.tmdb.org/t/p/w500/"
-    private static let TMDbAPIAccessKey = "?api_key=a868cc859b204425655c020f8b7eb2ab"
+    internal static let TMDbBaseURL = "https://api.themoviedb.org/3/"
+    internal static let TMDbBaseImageURL = "https://image.tmdb.org/t/p/w500/"
+    internal static let TMDbAPIAccessKey = "?api_key=a868cc859b204425655c020f8b7eb2ab"
 
-    private var currentMovieImageCache: [String: UIImage] = [:]
-    private var currentSearchText: String? = nil
-    private var voteAverageFilter: CGFloat = 0.0
+    internal var currentMovieImageCache: [String: UIImage] = [:]
+    internal var currentSearchText: String? = nil
+    internal var voteAverageFilter: CGFloat = 0.0
 
     public func getMovieList(_ listType: TMDbManager.MovieListType, searchText: String?, page: Int?) {
         guard let url = self.getMovieListURL(listType, searchText: searchText, page: page) else {
@@ -175,7 +175,7 @@ class TMDbManager {
     // MARK: Private functions.
 
     // TODO: Add unit tests for this function!
-    private func getMovieListURL(_ listType: TMDbManager.MovieListType, searchText: String?, page: Int?) -> URL? {
+    internal func getMovieListURL(_ listType: TMDbManager.MovieListType, searchText: String?, page: Int?) -> URL? {
         self.currentListType = listType
 
         var urlString = "\(TMDbManager.TMDbBaseURL)\(listType.listTypeURL())\(TMDbManager.TMDbAPIAccessKey)"
@@ -208,7 +208,7 @@ class TMDbManager {
     }
 
     // TODO: Add unit tests for this function!
-    private func getMovieImageURL(fileName: String) -> URL? {
+    internal func getMovieImageURL(fileName: String) -> URL? {
         let urlString = "\(TMDbManager.TMDbBaseImageURL)\(fileName)\(TMDbManager.TMDbAPIAccessKey)"
         //print("Image URL = \(urlString)")
 
@@ -221,7 +221,7 @@ class TMDbManager {
     }
 
     // TODO: Add unit tests for this function, using pre-built test data?
-    private func processMovieListResponse(data: Data?, error: Error?) {
+    internal func processMovieListResponse(data: Data?, error: Error?) {
         self.currentMovieList = []
         self.currentMovieImageCache = [:] // reset image cache for the new movie list
 

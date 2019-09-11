@@ -36,3 +36,7 @@ Late one night the week before my MrOwl interview, I found myself in a coding mo
 
 I then added paging controls a few days after my MrOwl interview....
 
+And then the next day, adjusted the code to handle unit tests, and wrote the first couple of tests.
+
+I'll add some more unit tests soon!
+

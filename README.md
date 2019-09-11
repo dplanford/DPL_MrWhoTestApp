@@ -1,5 +1,5 @@
 # DPL_MrWhoTestApp
-A iOS app built as a coding test for MrWho.com, coded in Swift 5
+A iOS app built as a coding test for MrOwl.com, coded in Swift 5
 
 The coding problem:
 

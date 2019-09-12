@@ -1,10 +1,11 @@
 //
-//  DPL_MrWhoTestAppTests.swift
+//  TMDbManagerTests.swift
 //  DPL_MrWhoTestAppTests
 //
 //  Created by Douglas Lanford on 8/17/19.
 //  Copyright © 2019 Douglas Lanford. All rights reserved.
 //
+//  Unit Tests for the TMDbManager class.
 
 import XCTest
 

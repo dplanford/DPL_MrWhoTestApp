@@ -174,7 +174,6 @@ class TMDbManager {
 
     // MARK: Private functions.
 
-    // TODO: Add unit tests for this function!
     internal func getMovieListURL(_ listType: TMDbManager.MovieListType, searchText: String?, page: Int?) -> URL? {
         self.currentListType = listType
 
@@ -207,9 +206,9 @@ class TMDbManager {
         return url
     }
 
-    // TODO: Add unit tests for this function!
     internal func getMovieImageURL(fileName: String) -> URL? {
         let urlString = "\(TMDbManager.TMDbBaseImageURL)\(fileName)\(TMDbManager.TMDbAPIAccessKey)"
+
         //print("Image URL = \(urlString)")
 
         guard let url = URL(string: urlString) else {
@@ -264,6 +263,7 @@ class TMDbManager {
         }
 
         self.currentMovieList = movieArray
+        
         //print(self.currentMovieList)
     }
 }
